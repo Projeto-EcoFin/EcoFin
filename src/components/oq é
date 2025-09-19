@@ -1,0 +1,4 @@
+Esta pasta é para todas as Views menores e reutilizáveis. 
+Estes não são páginas completas, mas sim blocos de construção
+que você pode usar em várias páginas. Por exemplo, 
+um Button.jsx, um Header.jsx enfim essas coisas pra usar em varias paginas
