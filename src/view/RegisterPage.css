@@ -13,7 +13,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f2f5; /* Um cinza claro de fundo */
+  background-color: #f0f2f5; 
 }
 
 .register-box {

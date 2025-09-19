@@ -1,13 +1,13 @@
 .page-wrapper {
-  background-color: #f4f7f9; /* Um cinza bem claro para o fundo */
+  background-color: #f4f7f9; 
   min-height: 100vh;
-  padding: 2rem 0; /* Remove a margem lateral para que os containers tenham o próprio padding */
+  padding: 2rem 0;
 }
 
 .main-content {
-  max-width: 900px; /* Limita a largura do conteúdo para não ficar muito esticado */
-  margin: 0 auto; /* Centraliza o conteúdo */
-  padding: 0 1.5rem; /* Adiciona um padding nas laterais em telas menores */
+  max-width: 900px; 
+  margin: 0 auto;
+  padding: 0 1.5rem; 
 }
 
 .page-title {

@@ -1,9 +1,9 @@
-/* Container do formulário */
+
 .form-container {
-  background-color: #ffffff; /* Fundo branco */
-  padding: 2.5rem; /* Mais espaço interno */
-  border-radius: 12px; /* Cantos mais arredondados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave para criar profundidade */
+  background-color: #ffffff; 
+  padding: 2.5rem;
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
   margin-bottom: 2rem;
 }
 
@@ -24,7 +24,7 @@ h3 {
 .input-row input,
 .input-row select {
   width: 100%;
-  /* Aumente o padding para fazer os campos maiores */
+
   padding: 1rem 1.2rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -36,15 +36,13 @@ h3 {
 .input-row input:focus,
 .input-row select:focus {
   outline: none;
-  border-color: #3f51b5; /* Borda azul ao focar */
+  border-color: #3f51b5; 
 }
 
-/* Botão "Adicionar" */
 .add-button {
   width: 100%;
-  /* Aumente o padding para fazer o botão maior */
   padding: 1.2rem;
-  background-color: #3f51b5; /* Cor do cabeçalho */
+  background-color: #3f51b5; 
   color: white;
   border: none;
   border-radius: 8px;
@@ -56,9 +54,9 @@ h3 {
 }
 
 .add-button:hover {
-  background-color: #303f9f; /* Escurece no hover */
+  background-color: #303f9f; 
 }
 
 .add-button:active {
-  transform: translateY(2px); /* Efeito de clique */
+  transform: translateY(2px); 
 }

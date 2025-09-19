@@ -1,4 +1,4 @@
-/* Container da lista */
+
 .list-container {
   background-color: #ffffff;
   padding: 2.5rem;
@@ -7,15 +7,15 @@
 }
 
 .filter-row {
-  display: flex; /* Usando flexbox para alinhar filtros */
+  display: flex; 
   gap: 1rem;
   margin-bottom: 1.5rem;
-  flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas pequenas */
+  flex-wrap: wrap; 
 }
 
 .filter-row input,
 .filter-row select {
-  flex-grow: 1; /* Permite que eles cresçam para ocupar o espaço disponível */
+  flex-grow: 1; 
   padding: 0.9rem 1.2rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -35,12 +35,12 @@ thead th {
   border-bottom: 2px solid #ddd;
 }
 
-tbody tr:nth-child(even) { /* Estiliza linhas pares */
+tbody tr:nth-child(even) { 
   background-color: #f9f9f9;
 }
 
 tbody tr:hover {
-  background-color: #f0f0f0; /* Destaca a linha ao passar o mouse */
+  background-color: #f0f0f0; 
 }
 
 tbody td {
@@ -49,16 +49,15 @@ tbody td {
 }
 
 .positive {
-  color: #2e7d32; /* Verde mais escuro */
+  color: #2e7d32; 
   font-weight: 600;
 }
 
 .negative {
-  color: #c62828; /* Vermelho mais escuro */
+  color: #c62828; 
   font-weight: 600;
 }
 
-/* Mensagem de lista vazia */
 .no-transactions-message {
   text-align: center;
   padding: 2rem;

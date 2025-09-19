@@ -5,14 +5,13 @@ const TransactionsList = ({ transactions }) => {
   return (
     <div className="list-container">
       <h3>Lista de Transações</h3>
-      {/* ... (código dos filtros) ... */}
 
       {/* Verificação: se não houver transações, mostre uma mensagem */}
       {transactions.length === 0 ? (
         <p className="no-transactions-message">Nenhuma transação encontrada. Adicione uma nova transação para começar.</p>
       ) : (
         <table>
-          {/* ... (cabeçalho e corpo da tabela) ... */}
+          {/*cabeçalho e corpo da tabela */}
         </table>
       )}
     </div>

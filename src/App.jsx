@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import TransactionsPages from './view/TransactionsPages';
 import RegisterPage from './view/RegisterPage'; 
-import LoginPage from './view/LoginPage';// Importe a nova página
+import LoginPage from './view/LoginPage';
 
 export default function App() {
   return (

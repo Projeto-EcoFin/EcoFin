@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import AddTransactionForm from '../components/AddTransactionForm';
 import TransactionsList from '../components/TransactionsList';
-// Certifique-se de que o nome do CSS também está correto e no plural
+
 import './TransactionsPages.css';
 
-// Mude o nome da função/componente
 const TransactionsPages = () => {
   const [transactions, setTransactions] = useState([]);
 
@@ -25,5 +24,4 @@ const TransactionsPages = () => {
   );
 };
 
-// Exporte o componente com o nome plural
 export default TransactionsPages;
