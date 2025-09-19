@@ -15,26 +15,26 @@ const RegisterPage = () => {
                       </header>
       <div className="register-box">
         <h2>Crie sua conta</h2>
-        <p>Já possui uma conta? Entre <a href="#">aqui</a>.</p>
+        <p>Já possui uma conta?<a href="#">Entre aqui</a>.</p>
 
         <form>
           <div className="input-group">
-            <label htmlFor="fullName">Nome Completo *</label>
+            <label htmlFor="fullName">Nome Completo </label>
             <input type="text" id="fullName" placeholder="Insira seu nome" />
           </div>
 
           <div className="input-group">
-            <label htmlFor="email">E-mail *</label>
+            <label htmlFor="email">E-mail </label>
             <input type="email" id="email" placeholder="Insira seu e-mail" />
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">Senha *</label>
+            <label htmlFor="password">Senha </label>
             <input type="password" id="password" placeholder="Insira sua senha" />
           </div>
 
           <div className="input-group">
-            <label htmlFor="confirmPassword">Senha *</label>
+            <label htmlFor="confirmPassword">Confirme sua senha </label>
             <input type="password" id="confirmPassword" placeholder="Insira sua senha" />
           </div>
 
@@ -47,7 +47,6 @@ const RegisterPage = () => {
             Acessar Conta
           </button>
         </form>
-
       </div>
     </div>
   );
