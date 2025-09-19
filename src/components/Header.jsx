@@ -1,11 +1,12 @@
 import React from 'react';
-import './Header.css'; // Vamos criar este arquivo de CSS em seguida
+import './Header.css';
+import logoImage from '../assets/logo.png';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="logo-container">
-        <div className="logo">EF.</div>
+       <img src={logoImage} alt="EcoFin Logo" className="logo-image" />
         <span className="app-name">EcoFin</span>
       </div>
       <nav className="navbar">

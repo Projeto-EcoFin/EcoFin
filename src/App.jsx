@@ -12,7 +12,7 @@ export default function App() {
         {/* Rota para a tela de cadastro */}
         <Route path="/cadastro" element={<RegisterPage />} />
 
-        {/* Redireciona a rota inicial para a tela de cadastro por enquanto */}
+        {/* Redireciona a rota inicial para a tela de cadastro */}
         <Route path="*" element={<Navigate to="/cadastro" />} />
       </Routes>
     </Router>
