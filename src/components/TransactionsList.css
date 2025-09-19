@@ -1,0 +1,68 @@
+/* Container da lista */
+.list-container {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.filter-row {
+  display: flex; /* Usando flexbox para alinhar filtros */
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas pequenas */
+}
+
+.filter-row input,
+.filter-row select {
+  flex-grow: 1; /* Permite que eles cresçam para ocupar o espaço disponível */
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+thead th {
+  text-align: left;
+  padding: 1rem 0;
+  color: #888;
+  font-weight: 500;
+  border-bottom: 2px solid #ddd;
+}
+
+tbody tr:nth-child(even) { /* Estiliza linhas pares */
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f0f0f0; /* Destaca a linha ao passar o mouse */
+}
+
+tbody td {
+  padding: 1rem 0;
+  color: #333;
+}
+
+.positive {
+  color: #2e7d32; /* Verde mais escuro */
+  font-weight: 600;
+}
+
+.negative {
+  color: #c62828; /* Vermelho mais escuro */
+  font-weight: 600;
+}
+
+/* Mensagem de lista vazia */
+.no-transactions-message {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+  font-style: italic;
+  font-size: 1.1rem;
+}
