@@ -1,0 +1,130 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Um cinza claro de fundo */
+}
+
+.register-box {
+  background-color: #ffffff;
+  padding: 2.5rem 3.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+p a {
+  color: #3f51b5;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.terms-checkbox label {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.register-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-button:hover {
+  background-color: #303f9f;
+}
+
+.or-divider {
+  margin: 1.5rem 0;
+  color: #999;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.or-divider::before {
+  left: 0;
+}
+
+.or-divider::after {
+  right: 0;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  /* Adicione os ícones com background-image aqui */
+}
