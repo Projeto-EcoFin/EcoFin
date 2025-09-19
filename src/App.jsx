@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import TransactionsPages from './view/TransactionsPages';
-import RegisterPage from './view/RegisterPage'; // Importe a nova página
+import RegisterPage from './view/RegisterPage'; 
+import LoginPage from './view/LoginPage';// Importe a nova página
 
 export default function App() {
   return (
@@ -11,6 +12,8 @@ export default function App() {
 
         {/* Rota para a tela de cadastro */}
         <Route path="/cadastro" element={<RegisterPage />} />
+
+        <Route path="/login" element={<LoginPage />} />
 
         {/* Redireciona a rota inicial para a tela de cadastro */}
         <Route path="*" element={<Navigate to="/cadastro" />} />
