@@ -1,9 +1,18 @@
 import React from 'react';
 import './RegisterPage.css';
+import logoImage from '../assets/logo.png';
 
 const RegisterPage = () => {
   return (
     <div className="register-container">
+       <header className="header">
+                        <div className="logo-container">
+                         <img src={logoImage} alt="EcoFin Logo" className="logo-image" />
+                          <span className="app-name">EcoFin</span>
+                        </div>
+                        <nav className="navbar">
+                        </nav>
+                      </header>
       <div className="register-box">
         <h2>Crie sua conta</h2>
         <p>Já possui uma conta? Entre <a href="#">aqui</a>.</p>
@@ -39,14 +48,6 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p className="or-divider">OU REGISTRE-SE COM</p>
-
-        <div className="social-login">
-          {/* Aqui você pode adicionar ícones de redes sociais */}
-          <button className="social-icon google"></button>
-          <button className="social-icon mail"></button>
-          <button className="social-icon facebook"></button>
-        </div>
       </div>
     </div>
   );
