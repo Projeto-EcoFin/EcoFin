@@ -13,7 +13,7 @@ const TransactionsPages = () => {
   };
 
   return (
-    <div className="page-wrapper">
+    <div className="transactions-container">
       <Header />
       <main className="main-content">
         <h1 className="page-title">Transações</h1>

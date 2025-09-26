@@ -136,5 +136,8 @@ p a {
   border: 1px solid #ddd;
   border-radius: 50%;
   cursor: pointer;
-  /* Adicione os ícones com background-image aqui */
+  
+}
+.register-container {
+  font-family: 'Arial', sans-serif; 
 }

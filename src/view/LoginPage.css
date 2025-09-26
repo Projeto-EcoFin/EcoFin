@@ -133,3 +133,6 @@
     width: 30px;
     cursor: pointer;
 }
+.login-page {
+  font-family: 'Arial', sans-serif;
+}

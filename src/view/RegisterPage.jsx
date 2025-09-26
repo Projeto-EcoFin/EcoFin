@@ -35,7 +35,7 @@ const RegisterPage = () => {
 
           <div className="input-group">
             <label htmlFor="confirmPassword">Confirme sua senha </label>
-            <input type="password" id="confirmPassword" placeholder="Insira sua senha" />
+            <input type="password" id="confirmPassword" placeholder="Confirme sua senha" />
           </div>
 
           <div className="terms-checkbox">
