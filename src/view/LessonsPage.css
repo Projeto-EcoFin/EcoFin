@@ -1,0 +1,221 @@
+/* Estilos Gerais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo-text {
+  color: #0b4f8d; /* Azul escuro */
+}
+
+.logo-text-eco {
+  color: #3b82f6; /* Azul claro */
+}
+
+.nav-menu a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #3b82f6;
+}
+
+/* Título Principal */
+.main-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Seção VIP */
+.vip-section {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.vip-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.vip-section p {
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.vip-features {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto 20px;
+  text-align: left;
+  display: inline-block;
+}
+
+.vip-features li {
+  margin-bottom: 10px;
+  color: #555;
+  position: relative;
+  padding-left: 25px;
+}
+
+.vip-features li::before {
+  content: '⭐'; /* Ícone de estrela */
+  position: absolute;
+  left: 0;
+}
+
+.vip-button {
+  background-color: #3b82f6;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.vip-button:hover {
+  background-color: #2563eb;
+}
+
+/* Grade de Lições */
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Card de Lição */
+.lesson-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-card.locked {
+  background-color: #f4f4f4;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.lock-icon {
+  fill: #666;
+  width: 20px;
+  height: 20px;
+}
+
+.lesson-title {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+}
+
+.lesson-description {
+  font-size: 14px;
+  color: #666;
+  flex-grow: 1; /* Para empurrar a seção de info para baixo */
+  margin-bottom: 15px;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.lesson-duration {
+  font-size: 14px;
+  color: #999;
+}
+
+.progress-bar-container {
+  width: 50%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  height: 8px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #555;
+  margin-left: 10px;
+}
+
+.lesson-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.lesson-card:not(.locked) .lesson-button {
+  background-color: #333;
+  color: #fff;
+}
+
+.lesson-card:not(.locked) .lesson-button:hover {
+  background-color: #555;
+}
+
+.lessons-container {
+  font-family: 'Arial', sans-serif; 
+}
