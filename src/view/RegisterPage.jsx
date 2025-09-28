@@ -1,8 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css';
 import logoImage from '../assets/logo.png';
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const handleLoginRedirect = (e) => {
+    e.preventDefault(); 
+    navigate('/login');
+  };
+
   return (
     <div className="register-container">
        <header className="header">
@@ -15,7 +23,9 @@ const RegisterPage = () => {
                       </header>
       <div className="register-box">
         <h2>Crie sua conta</h2>
-        <p>Já possui uma conta?<a href="#">Entre aqui</a>.</p>
+        <p>Já possui uma conta? <a href="#" onClick={handleLoginRedirect}>
+            Entre aqui
+          </a>.</p>
 
         <form>
           <div className="input-group">
