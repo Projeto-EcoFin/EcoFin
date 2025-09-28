@@ -4,7 +4,7 @@ import './AddTransactionForm.css';
 const AddTransactionForm = ({ onAddTransaction }) => {
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
-  const [type, setType] = useState('despesa'); // Mudei o padrão para despesa
+  const [type, setType] = useState('despesa'); 
   const [category, setCategory] = useState('');
 
   const handleSubmit = (e) => {

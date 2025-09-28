@@ -4,21 +4,16 @@ import RegisterPage from './view/RegisterPage';
 import LoginPage from './view/LoginPage';
 import LessonsPage from './view/LessonsPage';
 
+
 export default function App() {
   return (
     <Router>
+
       <Routes>
-        {/* Rota para a tela de transações */}
         <Route path="/transacoes" element={<TransactionsPages />} />
-
-        {/* Rota para a tela de cadastro */}
         <Route path="/cadastro" element={<RegisterPage />} />
-
         <Route path="/login" element={<LoginPage />} />
-
         <Route path="/licoes" element={<LessonsPage />} />
-
-        {/* Redireciona a rota inicial para a tela de cadastro */}
         <Route path="*" element={<Navigate to="/cadastro" />} />
       </Routes>
     </Router>

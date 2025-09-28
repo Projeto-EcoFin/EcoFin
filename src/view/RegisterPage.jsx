@@ -1,31 +1,28 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css';
-import logoImage from '../assets/logo.png';
+import Header from '../components/Header';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
 
   const handleLoginRedirect = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     navigate('/login');
   };
 
   return (
     <div className="register-container">
-       <header className="header">
-                        <div className="logo-container">
-                         <img src={logoImage} alt="EcoFin Logo" className="logo-image" />
-                          <span className="app-name">EcoFin</span>
-                        </div>
-                        <nav className="navbar">
-                        </nav>
-                      </header>
+      <Header />
+
       <div className="register-box">
         <h2>Crie sua conta</h2>
-        <p>Já possui uma conta? <a href="#" onClick={handleLoginRedirect}>
+        <p>
+          Já possui uma conta?{" "}
+          <a href="#" onClick={handleLoginRedirect}>
             Entre aqui
-          </a>.</p>
+          </a>.
+        </p>
 
         <form>
           <div className="input-group">
@@ -50,7 +47,9 @@ const RegisterPage = () => {
 
           <div className="terms-checkbox">
             <input type="checkbox" id="terms" />
-            <label htmlFor="terms">Eu concordo com os termos de serviço e política de privacidade</label>
+            <label htmlFor="terms">
+              Eu concordo com os termos de serviço e política de privacidade
+            </label>
           </div>
 
           <button type="submit" className="register-button">

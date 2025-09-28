@@ -1,6 +1,6 @@
 .header {
   background-color: #3f51b5;
-  color: #4682B4;
+  color: #3f51b5;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,16 +12,17 @@
   align-items: center;
 }
 
-.logo {
-  background-color: white;
-  color: #3f51b5;
-  font-weight: bold;
-  padding: 0.5rem;
-  border-radius: 5px;
-  margin-right: 0.5rem;
+.logo-image {
+  width: 60px;
+  height: auto;
+  margin-right: 0.75rem;
+  background-color: #000000;
+  border-radius: 50%;
+  padding: 5px;
 }
 
 .app-name {
+  color: #020000;
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -30,17 +31,18 @@
   list-style: none;
   display: flex;
   gap: 1.5rem;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar a {
-  color: white;
+  color: #020000;
   text-decoration: none;
   font-weight: 500;
+  opacity: 0.8;
+  transition: opacity 0.3s;
 }
 
-.logo-image {
-  width: 60px;   
-  height: auto;  
-  margin-right: 0.75rem;
-  border-radius: 5px;
+.navbar a:hover {
+  opacity: 1;
 }
