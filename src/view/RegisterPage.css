@@ -1,143 +1,138 @@
-.header {
-    width: 100%;
-    background-color: #4a90e2;
-    color: rgb(255, 255, 255);
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.split-page {
+display: flex;
+flex-direction: row;
+min-height: 100vh;
+width: 100vw;
+font-family: Arial, sans-serif; 
 }
 
-.register-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f0f2f5; 
+.logo-side {
+width: 50%;
+background-color: #4a90e2;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.logo-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.logo-image {
+display: block;
+width: 250px;
+height: 250px;
+border-radius: 50%; 
+border: 4px solid white;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-side {
+width: 50%;
+background-color: #ffffff;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 2.5rem;
+box-sizing: border-box;
 }
 
 .register-box {
-  background-color: #ffffff;
-  padding: 2.5rem 3.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+background-color: #ffffff;
+padding: 2.5rem 3.5rem;
+border-radius: 10px;
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+width: 100%;
+max-width: 400px;
+text-align: left;
 }
 
-h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #333;
+.title {
+font-size: 1.8rem;
+font-weight: 600;
+margin-bottom: 0.5rem;
+color: #333;
+text-align: center;
 }
 
-p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 1.5rem;
+.register-link-text {
+font-size: 0.9rem;
+color: #666;
+margin-bottom: 1.5rem;
+text-align: center;
 }
 
-p a {
-  color: #4a90e2;
-  text-decoration: none;
-  font-weight: bold;
+.register-link-text a {
+color: #4a90e2;
+text-decoration: none;
+font-weight: bold;
 }
 
-.input-group {
-  text-align: left;
-  margin-bottom: 1.5rem;
+.form-group {
+text-align: left;
+margin-bottom: 1.5rem; 
 }
 
-.input-group label {
-  display: block;
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 0.5rem;
+.form-group label {
+display: block;
+font-size: 0.9rem;
+color: #555;
+margin-bottom: 0.5rem;
 }
 
-.input-group input {
-  width: 100%;
-  padding: 0.9rem 1.2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+.form-group input {
+width: 100%;
+padding: 0.9rem 1.2rem;
+border: 1px solid #ccc;
+border-radius: 8px;
+font-size: 1rem;
+box-sizing: border-box;
 }
 
 .terms-checkbox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  text-align: left;
+display: flex;
+align-items: center;
+margin-bottom: 1.5rem;
+text-align: left;
 }
 
 .terms-checkbox input[type="checkbox"] {
-  margin-right: 0.5rem;
+margin-right: 0.5rem;
 }
 
 .terms-checkbox label {
-  font-size: 0.85rem;
-  color: #666;
+font-size: 0.85rem;
+color: #666;
 }
 
 .register-button {
-  width: 100%;
-  padding: 1rem;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
+width: 100%;
+padding: 1rem;
+background-color: #4a90e2;
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+cursor: pointer;
+transition: background-color 0.3s;
 }
 
 .register-button:hover {
-  background-color: #303f9f;
+background-color: #357bd8;
 }
 
-.or-divider {
-  margin: 1.5rem 0;
-  color: #999;
-  font-size: 0.8rem;
-  position: relative;
+@media (max-width: 768px) {
+.split-page {
+flex-direction: column;
 }
-
-.or-divider::before,
-.or-divider::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background-color: #ddd;
+.logo-side, .form-side {
+width: 100%;
+min-height: 250px;
 }
-
-.or-divider::before {
-  left: 0;
+.form-side {
+padding: 40px 20px;
 }
-
-.or-divider::after {
-  right: 0;
-}
-
-.social-login {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.social-icon {
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  cursor: pointer;
-  
-}
-.register-container {
-  font-family: 'Arial', sans-serif; 
 }
