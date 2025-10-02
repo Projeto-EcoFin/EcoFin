@@ -1,143 +1,146 @@
-.header {
-    width: 100%;
-    background-color: #4a90e2;
-    color: rgb(255, 255, 255);
-    padding: 15px 20px;
+.split-page-container {
     display: flex;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
-.register-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f0f2f5; 
+.left-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #ffffff;
 }
 
 .register-box {
-  background-color: #ffffff;
-  padding: 2.5rem 3.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+    max-width: 450px;
+    width: 100%;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
-h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #333;
+.right-panel {
+    flex: 1;
+    background: #f7f7f7; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden; 
+    text-align: center;
 }
 
-p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 1.5rem;
+.ecofin-logo-panel {
+    z-index: 2;
+    padding: 2rem;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
 }
 
-p a {
-  color: #4a90e2;
-  text-decoration: none;
-  font-weight: bold;
+.logo-title, .logo-subtitle {
+    display: none; 
 }
 
-.input-group {
-  text-align: left;
-  margin-bottom: 1.5rem;
+.revolutionary-logo-image {
+    max-width: 380px; 
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3)); 
+    margin-top: 0; 
 }
 
-.input-group label {
-  display: block;
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 0.5rem;
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
 }
 
-.input-group input {
-  width: 100%;
-  padding: 0.9rem 1.2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+.register-link a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #3b82f6;
+    outline: none;
 }
 
 .terms-checkbox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  text-align: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
 .terms-checkbox input[type="checkbox"] {
-  margin-right: 0.5rem;
+    width: auto;
+    margin-right: 0.75rem;
+    accent-color: #3b82f6;
 }
 
 .terms-checkbox label {
-  font-size: 0.85rem;
-  color: #666;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #4b5563;
+    margin-bottom: 0;
 }
 
-.register-button {
-  width: 100%;
-  padding: 1rem;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-.register-button:hover {
-  background-color: #303f9f;
+.login-button:hover {
+    background-color: #2563eb;
 }
 
-.or-divider {
-  margin: 1.5rem 0;
-  color: #999;
-  font-size: 0.8rem;
-  position: relative;
-}
+@media (max-width: 768px) {
+    .split-page-container {
+        flex-direction: column;
+    }
 
-.or-divider::before,
-.or-divider::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background-color: #ddd;
-}
-
-.or-divider::before {
-  left: 0;
-}
-
-.or-divider::after {
-  right: 0;
-}
-
-.social-login {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.social-icon {
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  cursor: pointer;
-  
-}
-.register-container {
-  font-family: 'Arial', sans-serif; 
+    .left-panel {
+        min-height: 60vh;
+        order: 2;
+    }
+    
+    .right-panel {
+        flex: 0 0 200px; 
+        order: 1;
+    }
 }
