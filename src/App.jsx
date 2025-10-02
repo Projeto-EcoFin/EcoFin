@@ -3,6 +3,7 @@ import TransactionsPages from './view/TransactionsPages';
 import RegisterPage from './view/RegisterPage'; 
 import LoginPage from './view/LoginPage';
 import LessonsPage from './view/LessonsPage';
+import VipPage from './view/VipCheckoutPage';
 
 
 export default function App() {
@@ -14,7 +15,8 @@ export default function App() {
         <Route path="/cadastro" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/licoes" element={<LessonsPage />} />
-        <Route path="*" element={<Navigate to="/cadastro" />} />
+        <Route path="/vip" element={<VipPage />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );

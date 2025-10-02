@@ -1,10 +1,11 @@
 .header {
-  background-color: #3f51b5;
-  color: #3f51b5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
+    background-color: #4682B4;
+    color: #ffffff; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
 }
 
 .logo-container {
@@ -16,13 +17,13 @@
   width: 60px;
   height: auto;
   margin-right: 0.75rem;
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 50%;
   padding: 5px;
 }
 
 .app-name {
-  color: #020000;
+  color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -36,7 +37,7 @@
 }
 
 .navbar a {
-  color: #020000;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   opacity: 0.8;

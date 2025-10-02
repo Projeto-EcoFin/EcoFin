@@ -1,6 +1,7 @@
   import React from 'react';
   import './LessonsPage.css';
   import Header from '../components/Header.jsx'; 
+  import { Link } from 'react-router-dom'; 
 
   const lessons = [
     {
@@ -77,11 +78,30 @@
     );
   };
 
-  const LessonsPage = () => {
+  const SecaoVIP = () => {
+    return (
+        <div className="vip-section">
+            <h2 className="vip-title">Conteúdo Exclusivo VIP</h2>
+            <p>Libere todas as lições e se transforme num especialista em finanças pessoais.</p>
+            <ul className="vip-features">
+                <li>Acesso a todas as lições de finanças educacionais.</li>
+                <li>Informações atualizadas mensalmente.</li>
+                <li>Assistência imediata de especialistas em finanças</li>
+            </ul>
+            <Link to="/VipCheckoutPage" className="vip-button-link">
+                Tornar-se VIP
+            </Link>
+        </div>
+    );
+};
+
+const LessonsPage = () => {
     return (
       <div className="lessons-container">
         <Header />
         <h1 className="main-title">Lições de Educação Financeira</h1>
+        
+        <SecaoVIP />
 
         <div className="lessons-grid">
           {lessons.map((lesson, index) => (
@@ -90,6 +110,6 @@
         </div>
       </div>
     );
-  };
+};
 
   export default LessonsPage;

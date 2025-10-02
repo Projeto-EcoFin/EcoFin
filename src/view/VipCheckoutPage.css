@@ -1,0 +1,288 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+.checkout-header {
+    background-color: #fff;
+    padding: 15px 50px;
+    border-bottom: 1px solid #ddd;
+}
+.logo-checkout {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.logo-ef {
+    background-color: #3b82f6; 
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 18px;
+}
+.logo-text {
+    font-size: 20px;
+    color: #333;
+}
+
+.vip-hero {
+    background-size: cover;
+    background-position: center;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    color: #fff;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4); 
+}
+
+.vip-hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 5px;
+}
+
+.vip-hero-content p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.checkout-container {
+    display: flex;
+    max-width: 1000px; 
+    margin: -20px auto 40px auto; 
+    gap: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.beneficios-card {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.beneficios-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.beneficios-card h2 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+.star-icon {
+    fill: #f59e0b; 
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.beneficios-lista {
+    list-style: none;
+    padding: 0;
+}
+
+.beneficios-lista li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.check-icon {
+    fill: #10b981;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.pagamento-card {
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.vip-badge-image {
+    position: absolute;
+
+    width: 120px; 
+    height: 120px;
+    top: -55px;   
+    right: -30px; 
+
+    transform: rotate(15deg); 
+    z-index: 20; 
+    object-fit: contain;
+}
+
+.pagamento-card h2 {
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.ciclo-cobranca {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.ciclo-cobranca p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.plano-opcao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 30px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.plano-opcao:hover {
+    border-color: #3b82f6;
+}
+
+.plano-opcao.selected {
+    border-color: #3b82f6;
+    background-color: #eff6ff; 
+}
+
+.plano-opcao input[type="radio"] {
+    display: none; 
+}
+
+.radio-label {
+    position: relative;
+    padding-left: 25px;
+    font-weight: bold;
+    color: #333;
+}
+
+.radio-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.plano-opcao.selected .radio-label::before {
+    border-color: #3b82f6;
+}
+
+.plano-opcao.selected .radio-label::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #4682B4;
+}
+
+.plano-preco {
+    font-weight: bold;
+    color: #333;
+}
+
+.economia {
+    color: #10b981; 
+    font-weight: normal;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.formulario-pagamento label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.formulario-pagamento input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row > div {
+    flex: 1;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4682B4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #4682B4;
+}
+
+/* === Responsividade Básica === */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+        margin-top: 20px;
+        padding: 0 20px;
+    }
+    
+    .vip-badge {
+        display: none; 
+    }
+}
