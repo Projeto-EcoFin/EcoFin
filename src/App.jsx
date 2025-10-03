@@ -5,6 +5,7 @@ import LoginPage from './view/LoginPage';
 import LessonsPage from './view/LessonsPage';
 import VipPage from './view/VipCheckoutPage';
 import DashboardPage from './view/DashboardPage';
+import ProfilePage from './view/ProfilePage';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/vip" element={<VipPage />} />
         <Route path="/dash" element={<DashboardPage />} />
         <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="perfil" element={<ProfilePage />} />
       </Routes>
     </Router>
   );

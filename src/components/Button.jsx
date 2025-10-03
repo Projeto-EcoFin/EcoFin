@@ -1,8 +1,11 @@
-const Button = ({ children, className = "", ...props }) => {
+import React from "react";
+import "./Button.css";
+
+const Button = ({ children, className = "", variant = "primary", ...props }) => {
   return (
     <button
       {...props}
-      className={`px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 ${className}`}
+      className={`custom-btn ${variant} ${className}`}
     >
       {children}
     </button>
