@@ -61,7 +61,7 @@
 }
 
 .register-link a {
-    color: #3b82f6;
+    color: #4682B4;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
@@ -89,7 +89,7 @@
 }
 
 .form-group input:focus {
-    border-color: #3b82f6;
+    border-color: #4682B4;
     outline: none;
 }
 
@@ -102,7 +102,7 @@
 .terms-checkbox input[type="checkbox"] {
     width: auto;
     margin-right: 0.75rem;
-    accent-color: #3b82f6;
+    accent-color: #4682B4;
 }
 
 .terms-checkbox label {
@@ -115,7 +115,7 @@
 .login-button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #3b82f6;
+    background-color: #4682B4;
     color: white;
     font-weight: 700;
     border: none;
@@ -126,7 +126,7 @@
 }
 
 .login-button:hover {
-    background-color: #2563eb;
+    background-color: #4682B4;
 }
 
 @media (max-width: 768px) {

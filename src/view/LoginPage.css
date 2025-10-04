@@ -70,7 +70,7 @@
 }
 
 .register-link a {
-    color: #3b82f6;
+    color: #4682B4;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
@@ -95,7 +95,7 @@
 .login-button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #3b82f6;
+    background-color: #4682B4;
     color: white;
     font-weight: 700;
     border: none;
@@ -106,11 +106,11 @@
 }
 
 .login-button:hover {
-    background-color: #2563eb;
+    background-color: #4682B4
 }
 
 .forgot-password a {
-    color: #3b82f6;
+    color: #4682B4;
     text-decoration: none;
     font-size: 0.9rem;
 }

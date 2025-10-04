@@ -1,0 +1,171 @@
+.orcamentos-page-container {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+.orcamentos-main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.top-section-orcamentos {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+
+.add-budget-card input {
+    width: 100%;
+    padding: 12px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.cta-button-orcamento {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cta-button-orcamento:hover {
+    background-color: #2563eb;
+}
+
+.budget-list-card {
+    margin-bottom: 20px;
+    overflow-x: auto; 
+}
+
+.budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.budget-table th {
+    font-weight: bold;
+    color: #555;
+    padding: 12px 10px;
+    border-bottom: 2px solid #ddd;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.budget-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    vertical-align: middle;
+}
+
+.budget-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.exceeded-row td {
+    background-color: #fff5f5;
+}
+
+.progress-container {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    height: 8px;
+    width: 100px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50; 
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-bar.exceeded {
+    background-color: #ff4d4f;
+}
+
+.actions-cell {
+    white-space: nowrap;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.icon-button .icon {
+    width: 20px;
+    height: 20px;
+    fill: #666; 
+}
+
+.edit-button:hover .icon {
+    fill: #3b82f6; 
+}
+
+.delete-button:hover .icon {
+    fill: #ff4d4f; 
+}
+
+.alert-box {
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.alert-box.error {
+    background-color: #ffe6e6; 
+    border: 1px solid #ffb3b3; 
+    color: #cc0000; 
+    border-left: 5px solid #ff4d4f; 
+}
+
+.alert-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.alert-box p {
+    margin: 0;
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .top-section-orcamentos {
+        grid-template-columns: 1fr; 
+    }
+}

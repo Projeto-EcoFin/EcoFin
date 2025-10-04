@@ -14,13 +14,13 @@
 }
 
 .custom-btn.primary {
-  background-color: #3b82f6;
+  background-color: #4682B4;
   color: white;
   border: none;
 }
 
 .custom-btn.primary:hover {
-  background-color: #2563eb;
+  background-color: #4682B4;
 }
 
 .custom-btn.danger {
@@ -35,7 +35,7 @@
 
 .custom-btn.outline {
   background-color: white;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;  
   color: black;
 }
 

@@ -6,6 +6,7 @@ import LessonsPage from './view/LessonsPage';
 import VipPage from './view/VipCheckoutPage';
 import DashboardPage from './view/DashboardPage';
 import ProfilePage from './view/ProfilePage';
+import BudgetPage from './view/BudgetPage';
 
 export default function App() {
   return (
@@ -18,8 +19,13 @@ export default function App() {
         <Route path="/licoes" element={<LessonsPage />} />
         <Route path="/vip" element={<VipPage />} />
         <Route path="/dash" element={<DashboardPage />} />
-        <Route path="*" element={<Navigate to="/login" />} />
         <Route path="perfil" element={<ProfilePage />} />
+        <Route path="metas" element={<BudgetPage />} />
+
+
+
+        <Route path="*" element={<Navigate to="/login" />} />
+        
       </Routes>
     </Router>
   );
