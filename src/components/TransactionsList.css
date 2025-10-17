@@ -65,3 +65,20 @@ tbody td {
   font-style: italic;
   font-size: 1.1rem;
 }
+.edit-button {
+    background-color: #007bff; /* Azul padrão */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-right: 8px; /* Espaçamento entre os botões */
+    transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+/* ... (Seu código delete-button) ... */
