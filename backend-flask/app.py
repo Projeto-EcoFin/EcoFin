@@ -3,19 +3,20 @@ from flask_cors import CORS
 import uuid
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 app.config["JWT_SECRET_KEY"] = "super-secret-key-ecofin-123" 
 jwt = JWTManager(app)
 
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
-
+# CONFIGURAÇÃO DE CORS: Permite acesso tanto às rotas /api/* quanto /auth/*
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"},
+                     r"/auth/*": {"origins": "http://localhost:5173"}})
 
 users_db = [
     {
         'id': 'user-1',
         'email': 'teste@ecofin.com',
-        'password': 'senha123', 
+        'password': 'senha123',
         'name': 'Usuário Teste'
     },
     {
@@ -30,7 +31,6 @@ transactions_db = []
 
 @app.route('/auth/login', methods=['POST'])
 def login():
-    """Recebe as credenciais e emite um token JWT."""
     data = request.get_json()
     email = data.get('email', None)
     password = data.get('password', None)
@@ -39,17 +39,46 @@ def login():
 
     if user and user["password"] == password:
         access_token = create_access_token(identity=user["id"])
-        
-        return jsonify(access_token=access_token, message="Login bem-sucedido"), 200
+        return jsonify(access_token=access_token, user_name=user['name'], message="Login bem-sucedido"), 200
     
     return jsonify({"message": "Email ou senha inválidos"}), 401
 
+@app.route('/auth/register', methods=['POST'])
+def register():
+    data = request.get_json()
 
+    required_fields = ['name', 'email', 'password', 'confirmPassword']
+    for field in required_fields:
+        if not data.get(field):
+            return jsonify({"message": f"O campo '{field}' é obrigatório."}), 400
+
+    email = data['email']
+    password = data['password']
+    confirm_password = data['confirmPassword']
+    
+    if password != confirm_password:
+        return jsonify({"message": "As senhas não coincidem."}), 400
+
+    if next((u for u in users_db if u["email"] == email), None):
+        return jsonify({"message": "Este e-mail já está cadastrado."}), 409 # 409 Conflict
+
+    new_user = {
+        'id': str(uuid.uuid4()),
+        'email': email,
+        'password': password, 
+        'name': data['name']
+    }
+    
+    users_db.append(new_user)
+    
+    return jsonify({
+        "message": "Conta criada com sucesso!", 
+        "user_id": new_user['id']
+    }), 201
 
 @app.route('/api/transactions', methods=['GET'])
 @jwt_required() 
 def get_transactions():
-
     return jsonify(transactions_db)
 
 @app.route('/api/transactions', methods=['POST'])
@@ -109,5 +138,5 @@ def update_transaction(id):
     return jsonify(current_transaction)
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True, port=3000)
