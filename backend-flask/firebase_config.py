@@ -1,28 +1,34 @@
-# backend-flask/firebase_config.py
+# backend-flask/firebase_config.py - CORRIGIDO
 
 import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 
-
+# Nome EXATO do seu arquivo (o que está na pasta backend-flask/)
 KEY_FILENAME = "ecofin-6f85d-firebase-adminsdk-fbsvc-38ee373200.json" 
-SERVICE_ACCOUNT_KEY = os.path.join(os.path.dirname(__file__), KEY_FILENAME)
+
+# Cria o caminho COMPLETO para o arquivo:
+# Junta o diretório atual do firebase_config.py (__file__) com o nome do arquivo da chave
+SERVICE_ACCOUNT_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), 
+    KEY_FILENAME
+)
 
 def initialize_firebase():
     """Inicializa o SDK do Firebase Admin."""
     try:
         if not firebase_admin._apps:
-            # 1. Carrega as credenciais usando o arquivo JSON
-            cred = credentials.Certificate(KEY_FILENAME) 
+            # 1. Carrega as credenciais usando o caminho COMPLETO
+            cred = credentials.Certificate(SERVICE_ACCOUNT_PATH)
             
             # 2. Inicializa a aplicação Firebase
             firebase_admin.initialize_app(cred)
             print("✅ Firebase Admin SDK inicializado com sucesso.")
             
     except FileNotFoundError:
-        print(f"❌ ERRO FATAL: Arquivo de chave de serviço JSON '{KEY_FILENAME}' não encontrado.")
-        print("Certifique-se de que o arquivo está no diretório correto.")
-        # O servidor deve falhar ou você deve interromper a execução aqui
+        # Se a chave não for encontrada no caminho completo:
+        print(f"❌ ERRO FATAL: Arquivo de chave de serviço JSON '{KEY_FILENAME}' não encontrado em: {SERVICE_ACCOUNT_PATH}")
+        print("Certifique-se de que o nome está correto e o arquivo está na pasta backend-flask.")
         exit(1)
     except Exception as e:
         print(f"❌ ERRO ao inicializar Firebase: {e}")

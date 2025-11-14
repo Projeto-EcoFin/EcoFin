@@ -1,62 +1,53 @@
 // src/services/UserService.js
 
-const API_USER_URL = "http://localhost:3000/api/user/profile";
+const API_PROFILE_URL = "http://localhost:3000/api/profile";
 
-// =================================================================
-// FUNÇÕES UTILITÁRIAS
-// =================================================================
-
-// Obtém o token JWT do localStorage e prepara os headers
+// Função utilitária para obter o token JWT do Flask
 const getAuthHeaders = () => {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem('access_token');
     if (!token) {
-        // Lógica para lidar com token ausente
-        throw new Error("Token de autenticação não encontrado. Faça login novamente.");
+        throw new Error("Token de acesso não encontrado. Usuário não autenticado.");
     }
     return {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
     };
 };
 
 // =================================================================
-// READ: Buscar Dados do Perfil (GET)
+// FUNÇÕES DE ACESSO AO PERFIL
 // =================================================================
+
 export const fetchUserProfile = async () => {
     const headers = getAuthHeaders();
     
-    const response = await fetch(API_USER_URL, {
-        method: "GET",
+    const response = await fetch(API_PROFILE_URL, {
+        method: 'GET',
         headers: headers,
     });
 
     if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Não foi possível carregar o perfil.");
+        throw new Error(errorData.message || "Falha ao buscar perfil.");
     }
 
-    // O backend retorna os dados do usuário
-    return response.json(); 
+    return response.json();
 };
 
-// =================================================================
-// UPDATE: Atualizar Dados do Perfil (PUT)
-// =================================================================
-export const updateProfile = async (updatedData) => {
+
+export const updateUserProfile = async (data) => {
     const headers = getAuthHeaders();
 
-    const response = await fetch(API_USER_URL, {
-        method: "PUT",
+    const response = await fetch(API_PROFILE_URL, {
+        method: 'PUT',
         headers: headers,
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(data)
     });
 
     if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Falha ao atualizar o perfil. Verifique o servidor.");
+        throw new Error(errorData.message || "Falha ao atualizar perfil.");
     }
 
-    // O backend retorna o objeto do usuário atualizado
-    const result = await response.json();
-    return result; 
+    return response.json();
 };
