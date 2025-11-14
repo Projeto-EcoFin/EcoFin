@@ -1,9 +1,12 @@
-// src/view/LoginPage.jsx - ATUALIZADO
+// src/view/LoginPage.jsx - ATUALIZADO COM A LOGO
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/AuthService'; // Importa o novo service
-import './LoginPage.css';
+import { loginUser } from '../services/AuthService';
+import './LoginPage.css'; 
+
+// 1. IMPORTAR A IMAGEM
+import logoImage from '../assets/logoP.png'; // <-- Caminho relativo correto
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -13,58 +16,76 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null); // Limpa erros anteriores
+        setError(null); 
 
         try {
-            // CHAMA A LÓGICA DE AUTENTICAÇÃO
             const userProfile = await loginUser(email, password);
-            
-            // Se o login for bem-sucedido (o token foi salvo no AuthService)
             alert(`Bem-vindo, ${userProfile.name || userProfile.email}!`);
-            navigate('/dashboard'); // Redireciona para a dashboard
-            
+            navigate('/dashboard'); 
         } catch (err) {
             console.error("Erro de Login:", err);
-            // Exibe a mensagem de erro fornecida pelo AuthService
             setError(err.message); 
         }
     };
 
     return (
-        <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}>
-                <h2>Login EcoFin</h2>
-                
-                {error && <p className="error-message">{error}</p>}
-                
-                <div className="form-group">
-                    <label htmlFor="email">E-mail</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div className="split-page-container">
+            
+            {/* PAINEL ESQUERDO (Formulário) */}
+            <div className="left-panel">
+                <div className="login-box">
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <h2 className="title">Login EcoFin</h2> 
+                        
+                        {error && <p className="error-message">{error}</p>}
+                        
+                        <div className="form-group">
+                            <label htmlFor="email">E-mail</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        
+                        <div className="form-group">
+                            <label htmlFor="password">Senha</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        
+                        <button type="submit" className="login-button">Entrar</button>
+                        
+                        <p className="register-link">
+                            Não tem conta? <a href="/cadastro">Cadastre-se</a>
+                        </p>
+                    </form>
                 </div>
-                
-                <div className="form-group">
-                    <label htmlFor="password">Senha</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
+            </div>
+
+            {/* PAINEL DIREITO (Logo) */}
+            <div className="right-panel">
+                <div className="ecofin-logo-panel">
+                    
+                    {/* 2. USAR A VARIÁVEL DA IMAGEM IMPORTADA */}
+                    <img 
+                        src={logoImage} 
+                        alt="EcoFin Logo" 
+                        className="revolutionary-logo-image" 
                     />
+
+                    <h1 className="logo-title">EcoFin</h1>
+                    <p className="logo-subtitle">Sua gestão financeira inteligente</p>
                 </div>
-                
-                <button type="submit" className="login-button">Entrar</button>
-                
-                <p className="register-link">
-                    Não tem conta? <a href="/cadastro">Cadastre-se</a>
-                </p>
-            </form>
+            </div>
+
         </div>
     );
 };
