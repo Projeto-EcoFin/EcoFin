@@ -2,118 +2,115 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../services/AuthService'; // Certifique-se de que o caminho está correto
-import './RegisterPage.css'; // Importa estilos se necessário
+import { registerUser } from '../services/AuthService'; 
+import './RegisterPage.css'; // Importa o CSS com os estilos de painel dividido
 
 const RegisterPage = () => {
-    // 1. Estados para os campos do formulário e feedback
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false); // Estado para desativar o botão
+    const [loading, setLoading] = useState(false); 
 
     const navigate = useNavigate();
 
-    // 2. Função de submissão do formulário
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Impede o recarregamento da página
-
-        // Limpa erros anteriores
+        e.preventDefault();
         setError(null);
-
-        // Validação básica (opcional, mas bom)
-        if (!name || !email || !password) {
-            setError("Por favor, preencha todos os campos.");
+        
+        if (!name || !email || !password || password.length < 6) {
+            setError("Por favor, preencha todos os campos e use uma senha de no mínimo 6 caracteres.");
             return;
         }
 
-        if (password.length < 6) {
-            setError("A senha deve ter no mínimo 6 caracteres.");
-            return;
-        }
-
-        setLoading(true); // Ativa o estado de carregamento
+        setLoading(true);
 
         try {
-            // Chama o serviço de registro que se comunica com o Flask
             const response = await registerUser(name, email, password);
-            
-            // Log de sucesso
-            console.log("Registro bem-sucedido:", response);
-
-            // Armazenar o token de acesso (exemplo)
             localStorage.setItem('access_token', response.access_token);
-            
-            // Navega para a dashboard ou página inicial
             navigate('/dashboard');
 
         } catch (err) {
             console.error("Erro ao tentar registrar:", err);
-            // Define o erro a partir da mensagem lançada no AuthService.js
             setError(err.message || "Erro desconhecido ao cadastrar.");
         } finally {
-            setLoading(false); // Desativa o carregamento
+            setLoading(false);
         }
     };
 
     return (
-        <div className="register-container">
-            <h2>Crie sua Conta EcoFin</h2>
+        // ESTRUTURA PARA APLICAR O CSS DE PAINEL DIVIDIDO
+        <div className="split-page-container">
             
-            {/* 3. Exibição de Erros */}
-            {error && <p className="error-message" style={{color: 'red', fontWeight: 'bold'}}>{error}</p>}
-            
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Nome Completo</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        value={name} 
-                        onChange={(e) => setName(e.target.value)} 
-                        required 
-                    />
-                </div>
-                
-                <div className="form-group">
-                    <label htmlFor="email">E-mail</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                        required 
-                    />
-                </div>
+            {/* PAINEL ESQUERDO: CONTEÚDO DO FORMULÁRIO */}
+            <div className="left-panel">
+                <div className="register-box"> {/* Seu CSS usa esta classe */}
+                    <h1 className="title">Crie sua Conta EcoFin</h1>
+                    
+                    {error && <p className="error-message" style={{color: 'red', fontWeight: 'bold'}}>{error}</p>}
+                    
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="name">Nome Completo</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                value={name} 
+                                onChange={(e) => setName(e.target.value)} 
+                                required 
+                            />
+                        </div>
+                        
+                        <div className="form-group">
+                            <label htmlFor="email">E-mail</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                required 
+                            />
+                        </div>
 
-                <div className="form-group">
-                    <label htmlFor="password">Senha</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                        minLength="6" 
-                        required 
-                    />
-                    <small>Mínimo de 6 caracteres.</small>
-                </div>
-                
-                {/* 4. O Botão Corrigido */}
-                <button 
-                    type="submit" 
-                    // Desativa o botão durante o carregamento
-                    disabled={loading} 
-                    className="submit-button"
-                >
-                    {loading ? 'Cadastrando...' : 'Cadastrar'}
-                </button>
+                        <div className="form-group">
+                            <label htmlFor="password">Senha</label>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                minLength="6" 
+                                required 
+                            />
+                            <small>Mínimo de 6 caracteres.</small>
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            disabled={loading} 
+                            className="login-button" // Seu CSS usa esta classe
+                        >
+                            {loading ? 'Cadastrando...' : 'Cadastrar'}
+                        </button>
 
-                <p className="login-link">
-                    Já tem conta? <span onClick={() => navigate('/login')}>Faça Login</span>
-                </p>
-            </form>
+                        <p className="register-link">
+                            Já tem conta? <a onClick={() => navigate('/login')}>Faça Login</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            {/* PAINEL DIREITO: LOGO E DECORAÇÃO */}
+            <div className="right-panel">
+                 <div className="ecofin-logo-panel">
+                     {/* Certifique-se de que o caminho da imagem está correto */}
+                     <img 
+                        src="/assets/revolutionary-logo.png" 
+                        alt="Logo da EcoFin" 
+                        className="revolutionary-logo-image" 
+                     />
+                 </div>
+            </div>
         </div>
     );
 };
