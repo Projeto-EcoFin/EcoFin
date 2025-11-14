@@ -1,61 +1,123 @@
 // src/services/AuthService.js
 
-// URL base para o seu Backend Flask
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "../firebase"; // Certifique-se de que o caminho está correto
+
 const API_URL = 'http://localhost:3000/api/auth';
 
-/**
- * Registra um novo usuário no backend Flask.
- * @param {string} name - Nome completo do usuário.
- * @param {string} email - Email do usuário.
- * @param {string} password - Senha do usuário.
- * @returns {Promise<object>} Dados do usuário registrado e token de acesso.
- */
+// =================================================================
+// REGISTRO DE USUÁRIO
+// =================================================================
 export const registerUser = async (name, email, password) => {
     try {
         const response = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: {
-                // ESSENCIAL: Garante que o Flask saiba que está recebendo JSON.
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                // Os nomes das chaves DEVEM ser EXATAMENTE 'name', 'email', 'password'
-                name: name,
-                email: email,
-                password: password
-            })
+            body: JSON.stringify({ name, email, password })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            // Se o status for 400, 409, ou 500, o Flask retornou um erro JSON.
-            // Lança o erro com a mensagem do campo 'error' retornada pelo Flask.
-            const errorMessage = data.error || 'Falha no register do Flask.';
-            throw new Error(errorMessage);
+            throw new Error(data.error || 'Falha no register do Flask.');
         }
 
-        // Sucesso (Status 201)
-        // Retorna o objeto com dados do usuário e access_token
         return data;
 
     } catch (error) {
-        // Loga o erro de rede ou o erro lançado acima
         console.error("Erro no AuthService (registerUser):", error);
-        // Lança o erro para ser capturado no RegisterPage.jsx (linha 24 e 30)
         throw error; 
     }
 };
 
-/**
- * Simula o login enviando o token do Firebase para o Flask gerar o JWT.
- * NOTA: O login real no Firebase deve ser feito separadamente no Front-end.
- * @param {string} idToken - ID Token do Firebase (obtido após login do cliente).
- * @returns {Promise<object>} Dados do usuário e token JWT do Flask.
- */
-export const loginUser = async (idToken) => {
-    // Implementação de login similar, focando no envio do id_token
-    // ...
+// =================================================================
+// LOGIN DE USUÁRIO
+// =================================================================
+const firebaseClientLogin = async (email, password) => {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const idToken = await userCredential.user.getIdToken();
+        return idToken; 
+    } catch (error) {
+        throw error;
+    }
 };
 
-// Implemente outras funções de serviço (logout, getProfile, etc.) aqui.
+export const loginUser = async (email, password) => {
+    try {
+        const idToken = await firebaseClientLogin(email, password);
+        
+        const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_token: idToken })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Falha na obtenção do JWT no Flask.');
+        }
+
+        localStorage.setItem('access_token', data.access_token);
+        return data.user; 
+
+    } catch (error) {
+        console.error("Erro no AuthService (loginUser):", error);
+        if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+            throw new Error("Credenciais inválidas. Verifique seu e-mail e senha.");
+        }
+        throw error;
+    }
+};
+
+// =================================================================
+// OBTER PERFIL DO USUÁRIO
+// =================================================================
+export const getProfile = async () => {
+    try {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            throw new Error("Token de acesso não encontrado.");
+        }
+
+        const response = await fetch(`${API_URL}/profile`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            const errorMessage = data.msg || 'Falha ao buscar perfil.';
+            throw new Error(errorMessage);
+        }
+
+        return data;
+
+    } catch (error) {
+        console.error("Erro no AuthService (getProfile):", error);
+        logoutUser(); 
+        throw error;
+    }
+};
+
+// =================================================================
+// LOGOUT
+// =================================================================
+export const logoutUser = async () => {
+    try {
+        localStorage.removeItem('access_token');
+        await signOut(auth);
+        console.log("Logout bem-sucedido.");
+        return true;
+    } catch (error) {
+        console.error("Erro ao fazer logout do Firebase:", error);
+        throw new Error("Erro ao desconectar do Firebase. Token local removido.");
+    }
+};
