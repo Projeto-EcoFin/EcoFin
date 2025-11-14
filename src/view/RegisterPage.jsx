@@ -1,9 +1,12 @@
-// src/view/RegisterPage.jsx
+// src/view/RegisterPage.jsx - CORRIGIDO
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/AuthService'; 
-import './RegisterPage.css'; // Importa o CSS com os estilos de painel dividido
+import './RegisterPage.css';
+
+// 1. IMPORTAR A IMAGEM (igual fizemos no login)
+import logoImage from '../assets/logoP.png'; 
 
 const RegisterPage = () => {
     const [name, setName] = useState('');
@@ -39,12 +42,11 @@ const RegisterPage = () => {
     };
 
     return (
-        // ESTRUTURA PARA APLICAR O CSS DE PAINEL DIVIDIDO
         <div className="split-page-container">
             
             {/* PAINEL ESQUERDO: CONTEÚDO DO FORMULÁRIO */}
             <div className="left-panel">
-                <div className="register-box"> {/* Seu CSS usa esta classe */}
+                <div className="register-box">
                     <h1 className="title">Crie sua Conta EcoFin</h1>
                     
                     {error && <p className="error-message" style={{color: 'red', fontWeight: 'bold'}}>{error}</p>}
@@ -88,13 +90,14 @@ const RegisterPage = () => {
                         <button 
                             type="submit" 
                             disabled={loading} 
-                            className="login-button" // Seu CSS usa esta classe
+                            className="login-button"
                         >
                             {loading ? 'Cadastrando...' : 'Cadastrar'}
                         </button>
 
                         <p className="register-link">
-                            Já tem conta? <a onClick={() => navigate('/login')}>Faça Login</a>
+                            {/* Corrigido para navegar ao invés de usar <a> */}
+                            Já tem conta? <a onClick={() => navigate('/login')} style={{cursor: 'pointer'}}>Faça Login</a>
                         </p>
                     </form>
                 </div>
@@ -103,9 +106,10 @@ const RegisterPage = () => {
             {/* PAINEL DIREITO: LOGO E DECORAÇÃO */}
             <div className="right-panel">
                  <div className="ecofin-logo-panel">
-                     {/* Certifique-se de que o caminho da imagem está correto */}
+                     
+                     {/* 2. USAR A VARIÁVEL DA IMAGEM IMPORTADA */}
                      <img 
-                        src="/assets/revolutionary-logo.png" 
+                        src={logoImage} 
                         alt="Logo da EcoFin" 
                         className="revolutionary-logo-image" 
                      />
@@ -115,4 +119,4 @@ const RegisterPage = () => {
     );
 };
 
-export default RegisterPage;
+export default RegisterPage;    
