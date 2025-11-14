@@ -1,65 +1,70 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './LoginPage.css'; 
-import logoPImage from '../assets/logoP.png'; 
+// src/view/LoginPage.jsx - ATUALIZADO
 
-const EcofinLogoPanel = () => (
-    <div className="ecofin-logo-panel">
-        <img 
-            src={logoPImage} 
-            alt="Ecofin Logo" 
-            className="revolutionary-logo-image" 
-        />
-    </div>
-);
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/AuthService'; // Importa o novo service
+import './LoginPage.css';
 
 const LoginPage = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const handleRegisterRedirect = (e) => {
-        e.preventDefault(); 
-        navigate('/register');
-    };
-
-    const handleLoginSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Tentativa de Login... (Lógica de autenticação a ser implementada aqui)");
-        // Lógica de autenticação com Firebase
+        setError(null); // Limpa erros anteriores
+
+        try {
+            // CHAMA A LÓGICA DE AUTENTICAÇÃO
+            const userProfile = await loginUser(email, password);
+            
+            // Se o login for bem-sucedido (o token foi salvo no AuthService)
+            alert(`Bem-vindo, ${userProfile.name || userProfile.email}!`);
+            navigate('/dashboard'); // Redireciona para a dashboard
+            
+        } catch (err) {
+            console.error("Erro de Login:", err);
+            // Exibe a mensagem de erro fornecida pelo AuthService
+            setError(err.message); 
+        }
     };
 
     return (
-        <div className="split-page-container">
-            
-            <div className="left-panel">
-                <div className="login-box">
-                    <h2 className="title">Acesse sua conta</h2>
-                    <p className="register-link">
-                        Novo cliente? Então 
-                        {' '}
-                        <a href="#" onClick={handleRegisterRedirect}>
-                            registre-se aqui
-                        </a>.
-                    </p> 
-                    <form className="login-form" onSubmit={handleLoginSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="login">Email </label>
-                            <input type="email" id="login" placeholder="Insira seu email" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Senha </label>
-                            <input type="password" id="password" placeholder="Insira sua senha" required />
-                        </div>
-                        <p className="forgot-password">
-                            <a href="/forgot-password">Esqueci minha senha</a>
-                        </p>
-                        <button type="submit" className="login-button">Acessar Conta</button>
-                    </form>
+        <div className="login-container">
+            <form className="login-form" onSubmit={handleSubmit}>
+                <h2>Login EcoFin</h2>
+                
+                {error && <p className="error-message">{error}</p>}
+                
+                <div className="form-group">
+                    <label htmlFor="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
                 </div>
-            </div>
-            
-            <div className="right-panel">
-                <EcofinLogoPanel />
-            </div>
+                
+                <div className="form-group">
+                    <label htmlFor="password">Senha</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                
+                <button type="submit" className="login-button">Entrar</button>
+                
+                <p className="register-link">
+                    Não tem conta? <a href="/register">Cadastre-se</a>
+                </p>
+            </form>
         </div>
     );
 };
