@@ -1,90 +1,87 @@
-# backend-flask/services/transaction_service.py
+# backend-flask/models/transaction_model.py
 
-from models.transaction_model import (
-    get_all_transactions_by_user, 
-    add_new_transaction,
-    update_transaction_data, # NOVO
-    delete_transaction_data, # NOVO
-    get_transaction_by_id # NOVO (necessário para validação)
-)
+from firebase_config import db # Importa a referência ao Firestore
+from datetime import datetime
 
 # =================================================================
-# LÓGICA DE NEGÓCIOS PARA CRIAÇÃO (POST)
+# FUNÇÕES CRUD (Create, Read, Update, Delete)
 # =================================================================
 
-def create_transaction(user_id, date, description, type, value):
-    """Valida e registra uma nova transação."""
-    
-    # Validação de Tipo
-    if type not in ["Receita", "Despesa"]:
-        return "Tipo de transação inválido. Deve ser 'Receita' ou 'Despesa'.", 400
-    
-    # Regra de Negócio: Garante que despesas sejam valores negativos
-    if type == "Despesa" and value > 0:
-        value = -abs(value)
-    
-    new_trans = add_new_transaction(user_id, date, description, type, value)
-    
-    if new_trans:
-        return new_trans, 201
-    return "Falha ao salvar a transação.", 500
-
-# =================================================================
-# LÓGICA DE NEGÓCIOS PARA LEITURA (GET)
-# =================================================================
-
-def fetch_user_transactions(user_id):
-    """Busca transações e aplica lógica de ordenação/filtragem."""
-    transactions = get_all_transactions_by_user(user_id)
-    
-    # Lógica de Negócios: Ordenar por data (opcional, mas útil)
-    transactions.sort(key=lambda t: t.get('date', '1900-01-01'), reverse=True)
-    
-    return transactions, 200
-
-# =================================================================
-# LÓGICA DE NEGÓCIOS PARA EDIÇÃO (PUT) - NOVO
-# =================================================================
-
-def update_transaction(user_id, transaction_id, update_data):
-    """Valida, aplica regras de negócio e atualiza uma transação existente."""
-    
-    current_transaction = get_transaction_by_id(transaction_id)
-    
-    # Validação de Segurança: A transação existe E pertence ao usuário logado?
-    if not current_transaction:
-        return "Transação não encontrada.", 404
-    if current_transaction.get('user_id') != user_id:
-        return "Acesso negado. A transação não pertence a este usuário.", 403
-
-    # Regra de Negócio: Se o tipo (type) ou o valor (value) forem alterados,
-    # aplicamos a regra de sinal (negativo para Despesa).
-    transaction_type = update_data.get('type', current_transaction.get('type'))
-    value = update_data.get('value', current_transaction.get('value'))
-
-    if transaction_type == "Despesa" and value > 0:
-        update_data['value'] = -abs(value)
-    elif transaction_type == "Receita" and value < 0:
-        update_data['value'] = abs(value)
+def get_all_transactions_by_user(user_id):
+    """Lê todas as transações de um usuário específico."""
+    try:
+        # Busca a coleção 'transactions' onde user_id é igual ao ID fornecido
+        docs = db.collection('transactions').where('user_id', '==', user_id).stream()
         
-    updated_trans = update_transaction_data(transaction_id, update_data)
-    
-    if updated_trans:
-        return updated_trans, 200
-    return "Falha ao atualizar a transação.", 500
+        transactions = []
+        for doc in docs:
+            trans_data = doc.to_dict()
+            trans_data['id'] = doc.id # Adiciona o ID do documento
+            transactions.append(trans_data)
+            
+        return transactions
+    except Exception as e:
+        print(f"Erro ao buscar transações: {e}")
+        return []
 
-# LÓGICA DE NEGÓCIOS PARA EXCLUSÃO (DELETE) 
-def delete_transaction(user_id, transaction_id):
-    """Valida a posse e exclui uma transação."""
-    
-    current_transaction = get_transaction_by_id(transaction_id)
-    
-    # Validação de Segurança: A transação existe E pertence ao usuário logado?
-    if not current_transaction:
-        return "Transação não encontrada.", 404
-    if current_transaction.get('user_id') != user_id:
-        return "Acesso negado. A transação não pertence a este usuário.", 403
+def add_new_transaction(user_id, date, description, type, value):
+    """Cria e salva uma nova transação."""
+    try:
+        new_transaction = {
+            'user_id': user_id,
+            'date': date, # Deve ser uma string 'YYYY-MM-DD'
+            'description': description,
+            'type': type,
+            'value': value,
+            'created_at': datetime.now().isoformat()
+        }
+        
+        # O Firestore gera automaticamente o ID do documento
+        ref = db.collection('transactions').add(new_transaction)
+        
+        # Retorna a transação completa, incluindo o ID gerado
+        new_transaction['id'] = ref[1].id
+        return new_transaction
+        
+    except Exception as e:
+        print(f"Erro ao adicionar transação: {e}")
+        return None
 
-    if delete_transaction_data(transaction_id):
-        return "Transação excluída com sucesso.", 200
-    return "Falha ao excluir a transação.", 500
+def update_transaction_data(transaction_id, update_data):
+    """Atualiza campos específicos de uma transação."""
+    try:
+        doc_ref = db.collection('transactions').document(transaction_id)
+        doc_ref.update(update_data)
+        
+        # Retorna o documento atualizado
+        updated_doc = doc_ref.get()
+        if updated_doc.exists:
+            data = updated_doc.to_dict()
+            data['id'] = updated_doc.id
+            return data
+        return None
+    except Exception as e:
+        print(f"Erro ao atualizar transação: {e}")
+        return None
+
+def delete_transaction_data(transaction_id):
+    """Exclui uma transação pelo ID."""
+    try:
+        db.collection('transactions').document(transaction_id).delete()
+        return True
+    except Exception as e:
+        print(f"Erro ao excluir transação: {e}")
+        return False
+
+def get_transaction_by_id(transaction_id):
+    """Lê uma transação específica pelo ID."""
+    try:
+        doc = db.collection('transactions').document(transaction_id).get()
+        if doc.exists:
+            data = doc.to_dict()
+            data['id'] = doc.id
+            return data
+        return None
+    except Exception as e:
+        print(f"Erro ao buscar transação por ID: {e}")
+        return None

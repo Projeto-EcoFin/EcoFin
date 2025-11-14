@@ -1,7 +1,5 @@
-# backend-flask/services/auth_service.py - Atualizado para Firebase Authentication
+# backend-flask/services/auth_service.py
 
-# Se você estiver usando o Admin SDK (que você configurou) para autenticar usuários,
-# a função a ser usada é user_management (auth).
 from firebase_admin import auth 
 from firebase_admin import exceptions as firebase_exceptions
 from models.user_model import save_user 
@@ -12,58 +10,50 @@ from models.user_model import save_user
 def register_user(name, email, password):
     """Cria um novo usuário no Firebase Authentication e salva no Firestore."""
     
-    # 1. Validação de Regra de Negócio/Entrada
+    # 1. Validação de Regra de Negócio/Entrada (Se falhar, retorna 400 BAD REQUEST)
     if not name or not email or not password:
-        return "Todos os campos são obrigatórios.", 400
+        return {"error": "Todos os campos são obrigatórios."}, 400
+        
+    if len(password) < 6:
+        return {"error": "A senha deve ter pelo menos 6 caracteres."}, 400
     
     try:
         # 2. Cria o usuário no Firebase Authentication
-        # O Firebase lida com o hashing e segurança da senha
         user = auth.create_user(
             email=email,
             password=password,
             display_name=name
         )
-        
-        # O ID do usuário no Firebase Auth é o UID. Usaremos ele como ID no Firestore
         user_id = user.uid
 
-        # 3. Salva os dados adicionais do perfil (telefone, localização, etc.) no Firestore
-        # NOTA: A senha NÃO é salva no Firestore, apenas no Firebase Auth
-        new_user = save_user(user_id, name, email, None) # A função save_user deve ser atualizada para receber o UID como primeiro argumento
+        # 3. Salva os dados adicionais do perfil
+        new_user_data = save_user(user_id, name, email) 
 
-        if new_user:
-            # Retorna dados do perfil, excluindo a senha
-            new_user.pop('password', None)
-            return new_user, 201
+        if new_user_data:
+            return new_user_data, 201
         
-        # Se falhar ao salvar no Firestore, tentamos apagar do Auth
+        # Se falhar ao salvar no Firestore, deleta o usuário criado no Auth
         auth.delete_user(user_id)
-        return "Usuário criado, mas falha ao salvar dados adicionais.", 500
+        return {"error": "Usuário criado, mas falha ao salvar dados adicionais."}, 500
 
     except firebase_exceptions.AlreadyExistsError:
-        return "Este e-mail já está em uso.", 409
+        return {"error": "Este e-mail já está em uso."}, 409
     except Exception as e:
         print(f"Erro de registro do Firebase: {e}")
-        return "Erro ao registrar usuário. Senha deve ter pelo menos 6 caracteres.", 400
+        # Retorna 400 para erros como senha mal formatada
+        return {"error": "Erro ao registrar usuário. Senha deve ter pelo menos 6 caracteres."}, 400
 
 
 def login_user(id_token):
-    """
-    Verifica o ID Token do Firebase enviado pelo Frontend após um login bem-sucedido.
-    Retorna o UID do Firebase para ser usado como JWT identity no Flask.
-    """
+    """Verifica o ID Token do Firebase e retorna o UID."""
     if not id_token:
-        return "Token de autenticação ausente.", 400
+        return {"error": "Token de autenticação ausente."}, 400
 
     try:
-        # Verifica o ID Token e obtém as informações do usuário
         decoded_token = auth.verify_id_token(id_token)
         uid = decoded_token['uid']
-        
-        # O Flask JWT precisa do UID para criar o token de acesso local
-        return uid, 200
+        return {"user_id": uid}, 200
     
     except Exception as e:
         print(f"Erro ao verificar ID Token do Firebase: {e}")
-        return "Token inválido ou expirado. Faça login novamente.", 401
+        return {"error": "Token inválido ou expirado. Faça login novamente."}, 401
