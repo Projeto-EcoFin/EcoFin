@@ -21,7 +21,7 @@ const LoginPage = () => {
         try {
             const userProfile = await loginUser(email, password);
             alert(`Bem-vindo, ${userProfile.name || userProfile.email}!`);
-            navigate('/dashboard'); 
+            navigate('/home'); 
         } catch (err) {
             console.error("Erro de Login:", err);
             setError(err.message); 
