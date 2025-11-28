@@ -17,7 +17,12 @@ const TransactionsPages = () => {
         const loadTransactions = async () => {
             try {
                 const data = await fetchTransactions();
-                setTransactions(data);
+                // Garante que é um array antes de setar
+                if (Array.isArray(data)) {
+                    setTransactions(data);
+                } else {
+                    setTransactions([]);
+                }
             } catch (err) {
                 setError('Não foi possível carregar as transações. Verifique a API.');
                 console.error(err);
@@ -48,7 +53,7 @@ const TransactionsPages = () => {
                 prevTransactions.filter(t => t.id !== transactionId)
             );
         } catch (err) {
-            alert('Erro ao excluir a transação. Verifique se o servidor Flask está rodando.');
+            alert('Erro ao excluir a transação.');
             console.error(err);
         }
     };
@@ -98,7 +103,7 @@ const TransactionsPages = () => {
                     onEditStart={handleEditStart} 
                 /> 
             </main>
-            <Footer />
+            
 
             {editingTransaction && (
                 <EditTransactionModal 

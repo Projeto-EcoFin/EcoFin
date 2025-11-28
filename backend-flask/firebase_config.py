@@ -1,39 +1,44 @@
-# backend-flask/firebase_config.py - CORRIGIDO
+# backend-flask/firebase_config.py
 
 import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 
-# Nome EXATO do seu arquivo (o que está na pasta backend-flask/)
-KEY_FILENAME = "ecofin-6f85d-firebase-adminsdk-fbsvc-38ee373200.json" 
+# --- MUDANÇA AQUI: Usamos o nome simples ---
+KEY_FILENAME = "serviceAccountKey.json"
+# -------------------------------------------
 
-# Cria o caminho COMPLETO para o arquivo:
-# Junta o diretório atual do firebase_config.py (__file__) com o nome do arquivo da chave
-SERVICE_ACCOUNT_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 
-    KEY_FILENAME
-)
+# Caminho absoluto para evitar erros de pasta
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SERVICE_ACCOUNT_PATH = os.path.join(BASE_DIR, KEY_FILENAME)
 
 def initialize_firebase():
     """Inicializa o SDK do Firebase Admin."""
-    try:
-        if not firebase_admin._apps:
-            # 1. Carrega as credenciais usando o caminho COMPLETO
-            cred = credentials.Certificate(SERVICE_ACCOUNT_PATH)
-            
-            # 2. Inicializa a aplicação Firebase
-            firebase_admin.initialize_app(cred)
-            print("✅ Firebase Admin SDK inicializado com sucesso.")
-            
-    except FileNotFoundError:
-        # Se a chave não for encontrada no caminho completo:
-        print(f"❌ ERRO FATAL: Arquivo de chave de serviço JSON '{KEY_FILENAME}' não encontrado em: {SERVICE_ACCOUNT_PATH}")
-        print("Certifique-se de que o nome está correto e o arquivo está na pasta backend-flask.")
-        exit(1)
-    except Exception as e:
-        print(f"❌ ERRO ao inicializar Firebase: {e}")
-        exit(1)
+    # Evita inicializar duas vezes se o arquivo for importado em vários lugares
+    if firebase_admin._apps:
+        return
 
-# Inicializa e obtém uma referência ao Firestore (seu banco de dados)
+    try:
+        # Verifica se o arquivo existe antes de tentar carregar
+        if not os.path.exists(SERVICE_ACCOUNT_PATH):
+            print("\n" + "="*50)
+            print("❌ ERRO CRÍTICO: ARQUIVO NÃO ENCONTRADO")
+            print(f"O Python procurou em: {SERVICE_ACCOUNT_PATH}")
+            print("\nARQUIVOS QUE ESTÃO NESTA PASTA:")
+            # Lista o que realmente está na pasta para ajudar no debug
+            for f in os.listdir(BASE_DIR):
+                print(f" - {f}")
+            print("="*50 + "\n")
+            raise FileNotFoundError(f"Chave não encontrada: {KEY_FILENAME}")
+
+        cred = credentials.Certificate(SERVICE_ACCOUNT_PATH)
+        firebase_admin.initialize_app(cred)
+        print("✅ Firebase conectado com sucesso!")
+            
+    except Exception as e:
+        print(f"❌ Erro no Firebase: {e}")
+        # Não damos exit(1) aqui para você conseguir ler o erro no terminal,
+        # mas a aplicação vai parar logo em seguida.
+
 initialize_firebase()
 db = firestore.client()
