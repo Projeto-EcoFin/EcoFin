@@ -1,54 +1,33 @@
 # backend-flask/controllers/user_controller.py
 
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from models.user_model import get_user_by_id
 
-# Importa as funções de serviço que criamos
-from services.user_service import get_user_profile, update_user_profile
-
-user_bp = Blueprint('user', __name__, url_prefix='/api/profile')
+# O prefixo definido no app.py é '/api', então esta rota será '/api/profile'
+user_bp = Blueprint('user', __name__) 
 
 # =================================================================
-# ROTA: /api/profile (GET) - Obter perfil
+# ROTA DE PERFIL (GET /api/profile)
 # =================================================================
-
-@user_bp.route('/', methods=['GET'])
-@jwt_required()
+@user_bp.route('/profile', methods=['GET'])
 def get_profile():
-    """
-    Retorna os dados do perfil do usuário logado.
-    """
-    # Obtém o ID do usuário (UID do Firebase) do token JWT
-    user_id = get_jwt_identity() 
+    # Pega o UID do usuário no cabeçalho
+    current_user_id = request.headers.get('X-User-ID')
     
-    # Chama o serviço para buscar o perfil
-    user_data, status_code = get_user_profile(user_id)
+    if not current_user_id:
+        return jsonify({"msg": "Acesso não autorizado. UID ausente."}), 401
     
-    # Retorna a resposta (JSON)
-    return jsonify(user_data), status_code
-
-
-# =================================================================
-# ROTA: /api/profile (PUT) - Atualizar perfil
-# =================================================================
-
-@user_bp.route('/', methods=['PUT'])
-@jwt_required()
-def update_profile():
-    """
-    Atualiza os dados do perfil do usuário logado.
-    """
-    # 1. Obtém o ID do usuário do token JWT
-    user_id = get_jwt_identity()
-    
-    # 2. Obtém os dados de atualização do corpo da requisição
-    update_data = request.get_json()
-    
-    if not update_data:
-        return jsonify({"message": "Nenhum dado fornecido para atualização."}), 400
-
-    # 3. Chama o serviço para atualizar o perfil
-    updated_user_data, status_code = update_user_profile(user_id, update_data)
-    
-    # 4. Retorna a resposta
-    return jsonify(updated_user_data), status_code
+    try:
+        # Busca no banco de dados
+        user_data = get_user_by_id(current_user_id)
+        
+        if user_data:
+            # Remove a senha antes de enviar para segurança
+            user_data.pop('password', None) 
+            return jsonify(user_data), 200
+        
+        return jsonify({"msg": "Usuário não encontrado."}), 404
+        
+    except Exception as e:
+        print(f"Erro ao carregar perfil: {e}")
+        return jsonify({"error": "Erro interno do servidor."}), 500
