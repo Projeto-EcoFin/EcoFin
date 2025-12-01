@@ -1,123 +1,84 @@
-// src/services/AuthService.js
+// src/services/AuthService.js (CORRIGIDO PARA O SEU BACKEND ATUAL)
 
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../firebase"; // Certifique-se de que o caminho está correto
-
+// ⚠️ CORREÇÃO 1: A URL base deve apontar para onde suas rotas estão (/api/auth)
 const API_URL = 'http://localhost:3000/api/auth';
+const STORAGE_KEY = 'user_id_simple'; 
 
 // =================================================================
-// REGISTRO DE USUÁRIO
+// 1. LOGIN (Envia email/senha, recebe o UID)
+// =================================================================
+export const loginUser = async (email, password) => {
+    const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, password })
+    });
+    
+    const data = await response.json();
+
+    if (response.ok) {
+        // Salva o ID do usuário como nosso 'código de sessão'
+        localStorage.setItem(STORAGE_KEY, data.user_id); 
+        return { user: data.user, success: true };
+    } else {
+        throw new Error(data.error || 'Email ou senha inválidos.');
+    }
+};
+
+// =================================================================
+// 2. REGISTRO
 // =================================================================
 export const registerUser = async (name, email, password) => {
-    try {
-        const response = await fetch(`${API_URL}/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, password })
-        });
+    const response = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, email, password })
+    });
+    
+    const data = await response.json();
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || 'Falha no register do Flask.');
-        }
-
-        return data;
-
-    } catch (error) {
-        console.error("Erro no AuthService (registerUser):", error);
-        throw error; 
+    if (response.ok) {
+        localStorage.setItem(STORAGE_KEY, data.id); 
+        return { message: data.message, success: true };
+    } else {
+        throw new Error(data.error || 'Erro ao registrar usuário.');
     }
 };
 
-// =================================================================
-// LOGIN DE USUÁRIO
-// =================================================================
-const firebaseClientLogin = async (email, password) => {
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const idToken = await userCredential.user.getIdToken();
-        return idToken; 
-    } catch (error) {
-        throw error;
-    }
-};
-
-export const loginUser = async (email, password) => {
-    try {
-        const idToken = await firebaseClientLogin(email, password);
-        
-        const response = await fetch(`${API_URL}/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id_token: idToken })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || 'Falha na obtenção do JWT no Flask.');
-        }
-
-        localStorage.setItem('access_token', data.access_token);
-        return data.user; 
-
-    } catch (error) {
-        console.error("Erro no AuthService (loginUser):", error);
-        if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-            throw new Error("Credenciais inválidas. Verifique seu e-mail e senha.");
-        }
-        throw error;
-    }
-};
 
 // =================================================================
-// OBTER PERFIL DO USUÁRIO
+// 3. GET PROFILE (CORRIGIDO)
 // =================================================================
 export const getProfile = async () => {
-    try {
-        const token = localStorage.getItem('access_token');
-        if (!token) {
-            throw new Error("Token de acesso não encontrado.");
-        }
+    // Recupera o ID salvo no login
+    const userId = localStorage.getItem(STORAGE_KEY);
 
-        const response = await fetch(`${API_URL}/profile`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
-            }
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            const errorMessage = data.msg || 'Falha ao buscar perfil.';
-            throw new Error(errorMessage);
-        }
-
-        return data;
-
-    } catch (error) {
-        console.error("Erro no AuthService (getProfile):", error);
-        logoutUser(); 
-        throw error;
+    if (!userId) {
+        throw new Error("Usuário não autenticado. Faça o login.");
     }
+
+    // ⚠️ CORREÇÃO 2: Envia o cabeçalho X-User-ID que o Python espera
+    // ⚠️ CORREÇÃO 3: A URL agora é /api/auth/profile
+    const response = await fetch(`${API_URL}/profile`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-User-ID': userId 
+        }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.msg || data.error || `Falha ao buscar perfil: ${response.status}`);
+    }
+
+    return data; 
 };
 
 // =================================================================
-// LOGOUT
+// 4. LOGOUT
 // =================================================================
 export const logoutUser = async () => {
-    try {
-        localStorage.removeItem('access_token');
-        await signOut(auth);
-        console.log("Logout bem-sucedido.");
-        return true;
-    } catch (error) {
-        console.error("Erro ao fazer logout do Firebase:", error);
-        throw new Error("Erro ao desconectar do Firebase. Token local removido.");
-    }
+    localStorage.removeItem(STORAGE_KEY);
 };

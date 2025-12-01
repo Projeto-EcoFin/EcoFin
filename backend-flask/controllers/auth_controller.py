@@ -1,10 +1,9 @@
-# backend-flask/controllers/auth_controller.py
+# backend-flask/controllers/auth_controller.py (COMPLETO E FINAL)
 
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 from models.user_model import get_user_by_id 
-from services.auth_service import register_user, login_user
+from services.auth_service import register_user, simple_login_check
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 
@@ -14,22 +13,14 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 @auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.json
-    
-    # Validação para JSON não recebido ou malformado
-    if data is None:
-        return jsonify({"error": "Requisição inválida: O corpo deve ser JSON."}), 400
-    
     name = data.get('name')
     email = data.get('email')
     password = data.get('password')
     
+    if not password or len(password) < 6:
+        return jsonify({"error": "A senha deve ter pelo menos 6 caracteres."}), 400
+
     response, status = register_user(name, email, password)
-    
-    if status == 201:
-        user_id = response.get('id') 
-        access_token = create_access_token(identity=user_id)
-        response['access_token'] = access_token
-        
     return jsonify(response), status
 
 
@@ -39,34 +30,48 @@ def register():
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
-    id_token = data.get('id_token') 
+    email = data.get('email')
+    password = data.get('password')
     
-    uid_response, status = login_user(id_token)
+    user_id = simple_login_check(email, password)
     
-    if status == 200:
-        uid = uid_response.get('user_id')
-        access_token = create_access_token(identity=uid)
-        
-        user_profile = get_user_by_id(uid) 
+    if user_id:
+        user_profile = get_user_by_id(user_id) 
         
         return jsonify({
-            'access_token': access_token, 
+            'user_id': user_id, 
             'user': user_profile
         }), 200
     
-    return jsonify(uid_response), status 
+    return jsonify({"error": "Email ou senha inválidos."}), 401 
 
 
 # =================================================================
-# ROTA DE PERFIL DO USUÁRIO (GET /api/auth/profile)
+# 🛑 CORREÇÃO FINAL DA ROTA DE PERFIL 🛑
 # =================================================================
+# O Front-end usa GET. O Back-end deve aceitar GET.
 @auth_bp.route('/profile', methods=['GET'])
-@jwt_required()
 def get_profile():
-    current_user_id = get_jwt_identity()
-    user_data = get_user_by_id(current_user_id)
+    # Pega o UID do usuário no cabeçalho 'X-User-ID' (enviado pelo AuthService.js)
+    current_user_id = request.headers.get('X-User-ID')
     
-    if user_data:
-        return jsonify(user_data), 200
+    # 1. Verifica se o usuário está "logado" (possui UID)
+    if not current_user_id:
+        return jsonify({"msg": "Acesso não autorizado. UID ausente."}), 401
     
-    return jsonify({"msg": "Usuário não encontrado"}), 404
+    try:
+        # 2. Busca os dados no Firestore
+        user_data = get_user_by_id(current_user_id)
+        
+        if user_data:
+            # Garante que o Front-end consiga carregar o 'name'
+            user_data.pop('password', None) # Remove a senha antes de enviar
+            return jsonify(user_data), 200
+        
+        # 3. Caso o UID exista, mas o perfil não esteja no banco
+        return jsonify({"msg": "Usuário não encontrado no banco de dados."}), 404
+        
+    except Exception as e:
+        # 4. Erro interno: retorna JSON para evitar 'JSON parse error'
+        print(f"Erro interno do servidor ao carregar perfil: {e}")
+        return jsonify({"error": "Erro interno do servidor."}), 500
