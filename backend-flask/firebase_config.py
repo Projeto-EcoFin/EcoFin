@@ -5,7 +5,7 @@ from firebase_admin import credentials, firestore
 import os
 
 # Nome EXATO do seu arquivo (o que está na pasta backend-flask/)
-KEY_FILENAME = "ecofin-6f85d-firebase-adminsdk-fbsvc-38ee373200.json" 
+KEY_FILENAME = "serviceAccountKey.json" 
 
 # Cria o caminho COMPLETO para o arquivo:
 # Junta o diretório atual do firebase_config.py (__file__) com o nome do arquivo da chave
