@@ -4,7 +4,9 @@ import './AddTransactionForm.css';
 const AddTransactionForm = ({ onAddTransaction }) => {
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
-  const [type, setType] = useState('despesa'); 
+  
+  // CORREÇÃO 1: O valor inicial deve ser "Despesa" (Maiúsculo) para bater com o Python
+  const [type, setType] = useState('Despesa'); 
   const [category, setCategory] = useState('');
 
   const handleSubmit = (e) => {
@@ -15,12 +17,13 @@ const AddTransactionForm = ({ onAddTransaction }) => {
       return;
     }
 
-    const finalValue = type === 'despesa' ? -parseFloat(value) : parseFloat(value);
-
     const newTransaction = {
       description,
-      value: finalValue,
+      // CORREÇÃO 2: Mandamos o valor positivo (absoluto). 
+      // O seu Python já tem a lógica para transformar Despesa em negativo.
+      value: parseFloat(value), 
       category,
+      type, // CORREÇÃO 3: Adicionamos o campo 'type' que estava faltando!
       date: new Date().toISOString().split('T')[0],
     };
 
@@ -30,6 +33,7 @@ const AddTransactionForm = ({ onAddTransaction }) => {
     setDescription('');
     setValue('');
     setCategory('');
+    setType('Despesa'); // Reseta para o padrão correto
   };
 
   return (
@@ -42,30 +46,35 @@ const AddTransactionForm = ({ onAddTransaction }) => {
             placeholder="Descrição" 
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
           />
           <input 
             type="number" 
             placeholder="Valor" 
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            required
+            min="0.01"
+            step="0.01"
           />
         </div>
         <div className="input-row">
-          {/* Campo de Tipo com novas opções */}
+          {/* CORREÇÃO 4: Os values das options devem ser Maiúsculos */}
           <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="despesa">Despesa</option>
-            <option value="receita">Receita</option>
+            <option value="Despesa">Despesa</option>
+            <option value="Receita">Receita</option>
           </select>
 
-          {/* Campo de Categoria com novas opções */}
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="">Categoria</option>
+          <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+            <option value="" disabled>Categoria</option>
             <option value="Salário">Salário</option>
             <option value="Alimentação">Alimentação</option>
             <option value="Saúde">Saúde</option>
             <option value="Lazer">Lazer</option>
             <option value="Investimento">Investimento</option>
             <option value="Moradia">Moradia</option>
+            <option value="Educação">Educação</option>
+            <option value="Transporte">Transporte</option>
             <option value="Outros">Outros</option>
           </select>
         </div>

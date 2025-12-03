@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #f0f2f5;
   margin: 0;
   padding: 0;
@@ -11,273 +11,202 @@ body {
   padding: 20px;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.logo-text {
-  color: #0b4f8d; 
-}
-
-.logo-text-eco {
-  color: #3b82f6; 
-}
-
-.nav-menu a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #555;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.nav-menu a:hover {
-  color: #3b82f6;
-}
-
 .main-title {
   font-size: 28px;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
+/* --- Seção VIP --- */
 .vip-section {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  border-left: 5px solid #FFD700; /* Dourado para dar ar de VIP */
+  padding: 30px;
   border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .vip-title {
   font-size: 24px;
   font-weight: bold;
   color: #333;
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
 .vip-section p {
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .vip-features {
   list-style-type: none;
   padding: 0;
-  margin: 0 auto 20px;
-  text-align: left;
-  display: inline-block;
+  margin-bottom: 25px;
 }
 
 .vip-features li {
   margin-bottom: 10px;
   color: #555;
   position: relative;
-  padding-left: 25px;
+  padding-left: 30px;
+  font-size: 16px;
 }
 
 .vip-features li::before {
   content: '⭐';
   position: absolute;
   left: 0;
+  top: 2px;
 }
 
-.vip-button,
- .vip-button-link {
-    background-color: #4682B4; 
-    color: #fff;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 5px; 
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 300px; 
-    display: block; 
-    margin: 0 auto; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
-    text-decoration: none; 
-    text-align: center;
-    line-height: normal; 
+.vip-button-link {
+  display: inline-block;
+  background-color: #4682B4;
+  color: #fff;
+  padding: 12px 40px;
+  border-radius: 5px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: bold;
+  text-align: center;
 }
 
-.vip-button:hover,
-.vip-button-link:hover { 
-    background-color: #3b82f6; 
+.vip-button-link:hover {
+  background-color: #3b82f6;
+  transform: translateY(-2px);
 }
+
+/* --- Grid de Lições --- */
 .lessons-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 25px;
 }
 
 .lesson-card {
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 25px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+}
+
+/* Efeito de hover apenas nos cards desbloqueados */
+.lesson-card:not(.locked):hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  border-color: #3b82f6;
 }
 
 .lesson-card.locked {
-  background-color: #f4f4f4;
-  opacity: 0.7;
-  pointer-events: none;
+  background-color: #f9f9f9;
+  opacity: 0.8;
+  border: 1px solid #eee;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.lock-icon {
-  fill: #666;
-  width: 20px;
-  height: 20px;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  height: 60px; /* Altura fixa para alinhar títulos */
 }
 
 .lesson-title {
   font-size: 18px;
-  color: #333;
-  font-weight: bold;
+  color: #2c3e50;
+  font-weight: 700;
   margin: 0;
+  line-height: 1.4;
+}
+
+.lock-icon {
+  fill: #95a5a6;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .lesson-description {
   font-size: 14px;
   color: #666;
-  flex-grow: 1; 
-  margin-bottom: 15px;
+  flex-grow: 1;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .card-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #888;
 }
 
-.lesson-duration {
-  font-size: 14px;
-  color: #999;
-}
-
+/* Barra de Progresso */
 .progress-bar-container {
-  width: 50%;
-  background-color: #e0e0e0;
-  border-radius: 5px;
+  width: 60%;
+  background-color: #eee;
+  border-radius: 10px;
   height: 8px;
   position: relative;
+  overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
-  background-color: #3b82f6;
-  border-radius: 5px;
-  transition: width 0.3s;
+  background-color: #10b981; /* Verde Ecofin */
+  border-radius: 10px;
 }
 
 .progress-text {
+  margin-left: 8px;
   font-size: 12px;
-  color: #555;
-  margin-left: 10px;
+  font-weight: 600;
 }
 
+.progress-text.complete {
+  color: #10b981;
+}
+
+/* Botões */
 .lesson-button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.lesson-card:not(.locked) .lesson-button {
+  transition: all 0.3s;
   background-color: #333;
   color: #fff;
 }
 
-.lesson-card:not(.locked) .lesson-button:hover {
-  background-color: #555;
+.lesson-button:hover {
+  background-color: #000;
 }
 
-.lessons-container {
-  font-family: 'Arial', sans-serif; 
+/* Estilo específico para botão bloqueado */
+.lesson-card.locked .lesson-button {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-.vip-section {
-    background-color: #fff; 
-    border: 1px solid #ddd;
-    padding: 30px; 
-    border-radius: 8px;
-    margin: 0 auto 25px auto; 
-    
-    max-width: 1400px; 
-    
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} 
-
-.vip-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #eee; 
-    padding-bottom: 10px;
-    text-align: left;
-}
-
-.vip-section p {
+.loading-state {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
     color: #666;
-    margin-bottom: 25px;
-    text-align: left; 
-}
-
-.vip-features {
-    list-style-type: none;
-    padding: 0;
-    margin: 0 0 30px 0; 
-    text-align: left; 
-}
-
-.vip-features li {
-    margin-bottom: 15px; 
-    color: #555;
-    position: relative;
-    padding-left: 40px;
-    font-size: 25px;
-}
-
-.vip-features li::before {
-    content: '⭐';
-    position: absolute;
-    left: 0;
-    font-size: 20px;
-    line-height: 1;
-}
-
-.vip-button {
-    background-color: #4682B4; 
-    color: #fff;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 5px; 
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 300px; 
-    display: block;
-    margin: 0 auto; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.vip-button:hover {
-    background-color: #3b82f6; 
 }
