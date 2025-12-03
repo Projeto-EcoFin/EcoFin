@@ -4,9 +4,8 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import os
 
-# --- MUDANÇA AQUI: Usamos o nome simples ---
-KEY_FILENAME = "serviceAccountKey.json"
-# -------------------------------------------
+# Nome EXATO do seu arquivo (o que está na pasta backend-flask/)
+KEY_FILENAME = "serviceAccountKey.json" 
 
 # Caminho absoluto para evitar erros de pasta
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -15,11 +15,12 @@ const Header = () => {
 
       <nav className="navbar">
         <ul>
-          <li><Link to="/home">Home</Link></li>
-          <li><Link to="/transacoes">Transações</Link></li>
-          <li><Link to="/dash">Relatórios</Link></li>
-          <li><Link to="/licoes">Lições</Link></li>
-          <li><Link to="/perfil">Perfil</Link></li>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/metas">Metas</a></li>
+          <li><a href="/transacoes">Transações</a></li>
+          <li><a href="/dash">Relatórios</a></li>
+          <li><a href="/licoes">Lições</a></li>
+          <li><a href="/perfil">Perfil</a></li>
         </ul>
       </nav>
     </header>

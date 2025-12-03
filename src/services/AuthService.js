@@ -1,14 +1,15 @@
-// src/services/AuthService.js (CORRIGIDO PARA O SEU BACKEND ATUAL)
+// src/services/AuthService.js (CORREÇÃO DEFINITIVA)
 
-// ⚠️ CORREÇÃO 1: A URL base deve apontar para onde suas rotas estão (/api/auth)
-const API_URL = 'http://localhost:3000/api/auth';
+// URL Base da API
+const API_BASE = 'http://localhost:3000/api';
 const STORAGE_KEY = 'user_id_simple'; 
 
 // =================================================================
-// 1. LOGIN (Envia email/senha, recebe o UID)
+// 1. LOGIN
 // =================================================================
 export const loginUser = async (email, password) => {
-    const response = await fetch(`${API_URL}/login`, {
+    // Rota: /api/auth/login
+    const response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password })
@@ -17,7 +18,7 @@ export const loginUser = async (email, password) => {
     const data = await response.json();
 
     if (response.ok) {
-        // Salva o ID do usuário como nosso 'código de sessão'
+        // Salva o ID simples
         localStorage.setItem(STORAGE_KEY, data.user_id); 
         return { user: data.user, success: true };
     } else {
@@ -29,7 +30,8 @@ export const loginUser = async (email, password) => {
 // 2. REGISTRO
 // =================================================================
 export const registerUser = async (name, email, password) => {
-    const response = await fetch(`${API_URL}/register`, {
+    // Rota: /api/auth/register
+    const response = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ name, email, password })
@@ -45,21 +47,19 @@ export const registerUser = async (name, email, password) => {
     }
 };
 
-
 // =================================================================
-// 3. GET PROFILE (CORRIGIDO)
+// 3. GET PROFILE
 // =================================================================
 export const getProfile = async () => {
-    // Recupera o ID salvo no login
     const userId = localStorage.getItem(STORAGE_KEY);
 
     if (!userId) {
-        throw new Error("Usuário não autenticado. Faça o login.");
+        throw new Error("Usuário não autenticado.");
     }
 
-    // ⚠️ CORREÇÃO 2: Envia o cabeçalho X-User-ID que o Python espera
-    // ⚠️ CORREÇÃO 3: A URL agora é /api/auth/profile
-    const response = await fetch(`${API_URL}/profile`, {
+    // Rota: /api/profile (definida no user_controller)
+    // ⚠️ MUDANÇA: Envia X-User-ID em vez de Authorization
+    const response = await fetch(`${API_BASE}/profile`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const getProfile = async () => {
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.msg || data.error || `Falha ao buscar perfil: ${response.status}`);
+        throw new Error(data.msg || `Erro: ${response.status}`);
     }
 
     return data; 
