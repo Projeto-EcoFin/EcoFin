@@ -1,114 +1,42 @@
-import React, { useState, useEffect } from 'react'; 
+// src/pages/TransactionsPages.jsx
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import AddTransactionForm from '../components/AddTransactionForm';
 import TransactionsList from '../components/TransactionsList';
-import EditTransactionModal from '../components/EditTransactionModal'; 
-import { fetchTransactions, createTransaction, deleteTransaction, updateTransaction } from '../services/TransactionService';
 
 import './TransactionsPages.css';
 
 const TransactionsPages = () => {
-    const [transactions, setTransactions] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [editingTransaction, setEditingTransaction] = useState(null); 
+  const [transactions, setTransactions] = useState([]);
 
-    useEffect(() => {
-        const loadTransactions = async () => {
-            try {
-                const data = await fetchTransactions();
-                setTransactions(data);
-            } catch (err) {
-                setError('Não foi possível carregar as transações. Verifique a API.');
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadTransactions();
-    }, []); 
+  const handleAddTransaction = (newTransaction) => {
+    setTransactions((prev) => [...prev, newTransaction]);
+  };
 
-    const handleAddTransaction = async (newTransactionData) => {
-        try {
-            const createdTransaction = await createTransaction(newTransactionData);
-            setTransactions((prev) => [...prev, createdTransaction]);
-        } catch (err) {
-            alert('Erro ao adicionar a transação. Tente novamente.');
-            console.error(err);
-        }
-    };
+  const handleDeleteTransaction = (transactionId) => {
+    setTransactions((prev) => prev.filter(t => t.id !== transactionId));
+  };
 
-    const handleDeleteTransaction = async (transactionId) => {
-        if (!window.confirm('Tem certeza que deseja excluir esta transação?')) {
-            return;
-        }
-        try {
-            await deleteTransaction(transactionId);
-            setTransactions(prevTransactions => 
-                prevTransactions.filter(t => t.id !== transactionId)
-            );
-        } catch (err) {
-            alert('Erro ao excluir a transação. Verifique se o servidor Flask está rodando.');
-            console.error(err);
-        }
-    };
+  const handleEditStart = () => {
+    alert("Edição ainda não implementada 😅");
+  };
 
-    const handleEditStart = (transaction) => {
-        setEditingTransaction(transaction); 
-    };
+  return (
+    <div className="transactions-container">
+      <Header />
+      <main className="main-content">
+        <h1 className="page-title">Transações</h1>
 
-    const handleEditSave = async (updatedData) => {
-        if (!editingTransaction) return;
+        <AddTransactionForm onAddTransaction={handleAddTransaction} />
 
-        try {
-            const updatedTransaction = await updateTransaction(editingTransaction.id, updatedData);
-            
-            setTransactions(prevTransactions => 
-                prevTransactions.map(t => 
-                    t.id === updatedTransaction.id ? updatedTransaction : t
-                )
-            );
-
-            setEditingTransaction(null); 
-
-        } catch (err) {
-            alert('Erro ao salvar a edição. Tente novamente.');
-            console.error(err);
-        }
-    };
-
-    const handleEditCancel = () => {
-        setEditingTransaction(null);
-    };
-
-    if (loading) return <p>Carregando transações...</p>;
-    if (error) return <p style={{ color: 'red' }}>Erro: {error}</p>;
-
-    return (
-        <div className="transactions-container">
-            <Header />
-            <main className="main-content">
-                <h1 className="page-title">Transações</h1>
-                
-                <AddTransactionForm onAddTransaction={handleAddTransaction} /> 
-                
-                <TransactionsList 
-                    transactions={transactions} 
-                    onDelete={handleDeleteTransaction}
-                    onEditStart={handleEditStart} 
-                /> 
-            </main>
-            <Footer />
-
-            {editingTransaction && (
-                <EditTransactionModal 
-                    transaction={editingTransaction}
-                    onSave={handleEditSave}
-                    onCancel={handleEditCancel}
-                />
-            )}
-        </div>
-    );
+        <TransactionsList
+          transactions={transactions}
+          onDelete={handleDeleteTransaction}
+          onEditStart={handleEditStart}
+        />
+      </main>
+    </div>
+  );
 };
 
 export default TransactionsPages;

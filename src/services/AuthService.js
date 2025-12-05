@@ -1,12 +1,10 @@
-// src/services/AuthService.js (CORREÇÃO DEFINITIVA)
+// src/services/AuthService.js (CORRIGIDO)
 
-// URL Base da API
+// URL Base da API (aponta para o prefixo /api)
 const API_BASE = 'http://localhost:3000/api';
 const STORAGE_KEY = 'user_id_simple'; 
 
-// =================================================================
 // 1. LOGIN
-// =================================================================
 export const loginUser = async (email, password) => {
     // Rota: /api/auth/login
     const response = await fetch(`${API_BASE}/auth/login`, {
@@ -26,11 +24,8 @@ export const loginUser = async (email, password) => {
     }
 };
 
-// =================================================================
 // 2. REGISTRO
-// =================================================================
 export const registerUser = async (name, email, password) => {
-    // Rota: /api/auth/register
     const response = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -47,9 +42,7 @@ export const registerUser = async (name, email, password) => {
     }
 };
 
-// =================================================================
-// 3. GET PROFILE
-// =================================================================
+// 3. GET PROFILE (AQUI ESTAVA O ERRO 401)
 export const getProfile = async () => {
     const userId = localStorage.getItem(STORAGE_KEY);
 
@@ -57,8 +50,7 @@ export const getProfile = async () => {
         throw new Error("Usuário não autenticado.");
     }
 
-    // Rota: /api/profile (definida no user_controller)
-    // ⚠️ MUDANÇA: Envia X-User-ID em vez de Authorization
+    // 🚀 CORREÇÃO: Envia X-User-ID em vez de Authorization
     const response = await fetch(`${API_BASE}/profile`, {
         method: 'GET',
         headers: {
@@ -76,9 +68,7 @@ export const getProfile = async () => {
     return data; 
 };
 
-// =================================================================
 // 4. LOGOUT
-// =================================================================
 export const logoutUser = async () => {
     localStorage.removeItem(STORAGE_KEY);
 };
