@@ -49,8 +49,7 @@ const VIPCheckoutPage = () => {
         </div>
         
         <div className="pagamento-card">
-        <img 
-            src={VipBadgeImage} 
+        <img  
             alt="Selo VIP" 
             className="vip-badge-image" 
           />
