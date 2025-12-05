@@ -1,84 +1,106 @@
-import React, { useState } from 'react';
-import './AddTransactionForm.css';
+import React, { useState, useEffect } from "react";
+import "./AddTransactionForm.css";
 
-const AddTransactionForm = ({ onAddTransaction }) => {
-  const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
-  
-  // CORREÇÃO 1: O valor inicial deve ser "Despesa" (Maiúsculo) para bater com o Python
-  const [type, setType] = useState('Despesa'); 
-  const [category, setCategory] = useState('');
+const AddTransactionForm = ({ onAddTransaction, editingTransaction, onEditSubmit, onCancelEdit }) => {
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+  const [type, setType] = useState("despesa");
+  const [category, setCategory] = useState("");
+
+  // Quando entrar em modo de edição, preencher o formulário
+  useEffect(() => {
+    if (editingTransaction) {
+      setDescription(editingTransaction.description);
+      setValue(Math.abs(editingTransaction.value));
+      setType(editingTransaction.value < 0 ? "despesa" : "receita");
+      setCategory(editingTransaction.category);
+    }
+  }, [editingTransaction]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!description || !value || !category) {
-      alert('Por favor, preencha todos os campos.');
+      alert("Por favor, preencha todos os campos.");
       return;
     }
 
+    const finalValue =
+      type === "despesa" ? -parseFloat(value) : parseFloat(value);
+
     const newTransaction = {
+      id: editingTransaction ? editingTransaction.id : Date.now(),
       description,
-      // CORREÇÃO 2: Mandamos o valor positivo (absoluto). 
-      // O seu Python já tem a lógica para transformar Despesa em negativo.
-      value: parseFloat(value), 
+      value: finalValue,
       category,
-      type, // CORREÇÃO 3: Adicionamos o campo 'type' que estava faltando!
-      date: new Date().toISOString().split('T')[0],
+      type,
+      date: new Date().toISOString().split("T")[0],
     };
 
-    onAddTransaction(newTransaction);
-    
-    // Limpa os campos do formulário
-    setDescription('');
-    setValue('');
-    setCategory('');
-    setType('Despesa'); // Reseta para o padrão correto
+    if (editingTransaction) {
+      onEditSubmit(newTransaction);
+    } else {
+      onAddTransaction(newTransaction);
+    }
+
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setDescription("");
+    setValue("");
+    setCategory("");
+    setType("despesa");
   };
 
   return (
     <div className="form-container">
-      <h3>Adicionar Nova Transação</h3>
+      <h3>{editingTransaction ? "Editar Transação" : "Adicionar Nova Transação"}</h3>
+
       <form onSubmit={handleSubmit}>
         <div className="input-row">
-          <input 
-            type="text" 
-            placeholder="Descrição" 
+          <input
+            type="text"
+            placeholder="Descrição"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
           />
-          <input 
-            type="number" 
-            placeholder="Valor" 
+
+          <input
+            type="number"
+            placeholder="Valor"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            required
-            min="0.01"
-            step="0.01"
           />
         </div>
+
         <div className="input-row">
-          {/* CORREÇÃO 4: Os values das options devem ser Maiúsculos */}
           <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="Despesa">Despesa</option>
-            <option value="Receita">Receita</option>
+            <option value="despesa">Despesa</option>
+            <option value="receita">Receita</option>
           </select>
 
-          <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-            <option value="" disabled>Categoria</option>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="">Categoria</option>
             <option value="Salário">Salário</option>
             <option value="Alimentação">Alimentação</option>
             <option value="Saúde">Saúde</option>
             <option value="Lazer">Lazer</option>
             <option value="Investimento">Investimento</option>
             <option value="Moradia">Moradia</option>
-            <option value="Educação">Educação</option>
-            <option value="Transporte">Transporte</option>
             <option value="Outros">Outros</option>
           </select>
         </div>
-        <button type="submit" className="add-button">+ Adicionar Transação</button>
+
+        <button type="submit" className="add-button">
+          {editingTransaction ? "Salvar Alterações" : "+ Adicionar Transação"}
+        </button>
+
+        {editingTransaction && (
+          <button type="button" className="cancel-button" onClick={onCancelEdit}>
+            Cancelar
+          </button>
+        )}
       </form>
     </div>
   );

@@ -1,96 +1,63 @@
-const API_URL = 'http://localhost:3000/api/transactions'; 
+// src/services/TransactionService.js
+import axios from "axios";
 
-// 1. FUNÇÃO DE LEITURA (GET): Buscar todas as transações
+const API_URL = "http://localhost:3000/api/transactions";
+
+// Função para obter o ID do usuário do localStorage
+const getUserID = () => localStorage.getItem("user_id_simple");
+
+// =========================
+// LISTAR TRANSAÇÕES
+// =========================
 export const fetchTransactions = async () => {
-    try {
-        const response = await fetch(API_URL);
-        
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar transações: ${response.statusText}`);
-        }
+  const userID = getUserID();
+  if (!userID) return [];
 
-        const data = await response.json();
-        return data;
+  const res = await axios.get(API_URL, {
+    headers: { "X-User-ID": userID }
+  });
 
-    } catch (error) {
-        console.error("Falha ao buscar transações:", error);
-        return []; 
-    }
+  return res.data;
 };
 
-// 2. FUNÇÃO DE CRIAÇÃO (POST): Adicionar uma nova transação
-export const createTransaction = async (transactionData) => {
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(transactionData),
-        });
+// =========================
+// CRIAR TRANSAÇÃO
+// =========================
+export const createTransaction = async (data) => {
+  const userID = getUserID();
+  if (!userID) throw new Error("Usuário não encontrado para criar transação");
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Falha ao criar transação');
-        }
+  const res = await axios.post(API_URL, data, {
+    headers: { "X-User-ID": userID }
+  });
 
-        const newTransaction = await response.json();
-        return newTransaction;
-
-    } catch (error) {
-        console.error("Falha ao criar transação:", error);
-        throw error;
-    }
+  return res.data.transaction;
 };
 
-// 3. FUNÇÃO DE EXCLUSÃO (DELETE): Excluir uma transação por ID
-export const deleteTransaction = async (transactionId) => {
-    try {
-        const response = await fetch(`${API_URL}/${transactionId}`, {
-            method: 'DELETE', 
-        });
+// =========================
+// ATUALIZAR TRANSAÇÃO
+// =========================
+export const updateTransaction = async (id, updateData) => {
+  const userID = getUserID();
+  if (!userID) throw new Error("Usuário não encontrado");
 
-        if (response.status === 404) {
-             throw new Error(`Transação com ID ${transactionId} não encontrada.`);
-        }
-        
-        if (!response.ok) {
-            throw new Error(`Erro ao excluir transação: ${response.statusText}`);
-        }
+  const res = await axios.put(`${API_URL}/${id}`, updateData, {
+    headers: { "X-User-ID": userID }
+  });
 
-        return true; 
-
-    } catch (error) {
-        console.error("Falha ao excluir transação:", error);
-        throw error;
-    }
+  return res.data.transaction;
 };
 
-// 4. FUNÇÃO DE ATUALIZAÇÃO (PUT): Editar uma transação
-export const updateTransaction = async (transactionId, updatedData) => {
-    try {
-        const response = await fetch(`${API_URL}/${transactionId}`, {
-            method: 'PUT', 
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedData),
-        });
+// =========================
+// DELETAR TRANSAÇÃO
+// =========================
+export const deleteTransaction = async (id) => {
+  const userID = getUserID();
+  if (!userID) throw new Error("Usuário não encontrado");
 
-        if (response.status === 404) {
-             throw new Error(`Transação com ID ${transactionId} não encontrada.`);
-        }
-        
-        if (!response.ok) {
-            const errorBody = await response.json();
-            throw new Error(errorBody.message || 'Falha ao atualizar transação');
-        }
+  const res = await axios.delete(`${API_URL}/${id}`, {
+    headers: { "X-User-ID": userID }
+  });
 
-        const updatedTransaction = await response.json();
-        return updatedTransaction; 
-
-    } catch (error) {
-        console.error("Falha ao atualizar transação:", error);
-        throw error;
-    }
+  return res.data.message;
 };

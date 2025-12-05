@@ -1,84 +1,90 @@
+/* src/components/TransactionsList.css */
 
-.list-container {
-  background-color: #ffffff;
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.transactions-list-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.filter-row {
-  display: flex; 
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap; 
+/* --- Layout Grid (Responsável pelo alinhamento das colunas) --- */
+.transaction-item {
+    display: grid;
+    /* Define 6 colunas com larguras responsivas */
+    grid-template-columns: 100px 3fr 1fr 1.5fr 1fr 1.5fr; 
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eeeeee;
 }
 
-.filter-row input,
-.filter-row select {
-  flex-grow: 1; 
-  padding: 0.9rem 1.2rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+/* --- Estilo do Cabeçalho --- */
+.header-row {
+    font-weight: bold;
+    background-color: #f8f8f8;
+    color: #444;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
+/* --- Efeito Zebra (Linhas Alternadas) e Hover --- */
+.transaction-item:nth-child(even):not(.header-row) {
+    background-color: #fcfcfc; /* Cor de fundo suave para linhas pares */
 }
 
-thead th {
-  text-align: left;
-  padding: 1rem 0;
-  color: #888;
-  font-weight: 500;
-  border-bottom: 2px solid #ddd;
+.transaction-item:hover:not(.header-row) {
+    background-color: #f5f5ff; /* Destaque ao passar o mouse */
+    cursor: default;
 }
 
-tbody tr:nth-child(even) { 
-  background-color: #f9f9f9;
+/* --- Cores de Receita e Despesa --- */
+.receita .trans-value {
+    color: #28a745; /* Verde */
+    font-weight: 600;
 }
 
-tbody tr:hover {
-  background-color: #f0f0f0; 
+.despesa .trans-value {
+    color: #dc3545; /* Vermelho */
+    font-weight: 600;
 }
 
-tbody td {
-  padding: 1rem 0;
-  color: #333;
+/* --- Estilo dos Botões de Ação --- */
+.trans-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
 
-.positive {
-  color: #2e7d32; 
-  font-weight: 600;
-}
-
-.negative {
-  color: #c62828; 
-  font-weight: 600;
-}
-
-.no-transactions-message {
-  text-align: center;
-  padding: 2rem;
-  color: #999;
-  font-style: italic;
-  font-size: 1.1rem;
-}
-.edit-button {
-    background-color: #007bff; /* Azul padrão */
-    color: white;
+.trans-actions button {
+    padding: 6px 10px;
     border: none;
-    padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85rem;
-    margin-right: 8px; /* Espaçamento entre os botões */
+    font-size: 13px;
     transition: background-color 0.2s;
 }
 
-.edit-button:hover {
-    background-color: #0056b3;
+.btn-edit {
+    background-color: #007bff;
+    color: white;
 }
 
-/* ... (Seu código delete-button) ... */
+.btn-delete {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-edit:hover { background-color: #0056b3; }
+.btn-delete:hover { background-color: #5a6268; }
+
+.no-transactions {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-style: italic;
+    background-color: #ffffff;
+    border-radius: 8px;
+}

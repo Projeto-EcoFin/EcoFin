@@ -25,9 +25,9 @@ CORS(app, resources={r"/api/*": {"origins": [
 # =================================================================
 
 # Registro dos Blueprints (Mantenha o prefixo /api)
-app.register_blueprint(auth_bp) # prefixo /api/auth já está no auth_bp
-app.register_blueprint(user_bp, url_prefix='/api')
-app.register_blueprint(transaction_bp, url_prefix='/api')
+app.register_blueprint(auth_bp) # (Rota /api/auth/...)
+app.register_blueprint(user_bp, url_prefix='/api') # (Rota /api/profile)
+app.register_blueprint(transaction_bp, url_prefix='/api') # (Rota /api/transactions)
 
 
 # Rota de teste
