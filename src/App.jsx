@@ -8,6 +8,8 @@ import DashboardPage from './view/DashboardPage';
 import ProfilePage from './view/ProfilePage';
 import BudgetPage from './view/BudgetPage';
 import HomePage from './view/HomePage';
+import AulaPage from "./view/AulaPage.jsx";
+
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/perfil" element={<ProfilePage />} />
         <Route path="/metas" element={<BudgetPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/aula/:id" element={<AulaPage />} />
+
 
 
 

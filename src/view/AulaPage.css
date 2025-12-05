@@ -1,0 +1,91 @@
+.aula-wrapper {
+  background-color: #f4f8fb;
+  min-height: 100vh;
+}
+
+.aula-container {
+  margin-top: 80px;
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: #1d3557;
+  color: #fff;
+  padding: 20px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.sidebar-item {
+  list-style: none;
+  margin: 10px 0;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.sidebar-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.sidebar-item.active {
+  background: #007bff;
+}
+
+.sidebar-item.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Main Content */
+.aula-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.aula-video {
+  width: 100%;
+  height: 350px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.aula-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.aula-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.aula-actions button {
+  background: #457b9d;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.aula-actions button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.finish-btn {
+  background: #06c258 !important;
+}
