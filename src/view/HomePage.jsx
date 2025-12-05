@@ -1,55 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import SummaryCard from '../components/SummaryCard';
 import './HomePage.css'; 
 
-
-const FinanceiroGeral = ({ saldo, despesas, receitas }) => (
-    <div className="visao-geral-container">
-        <SummaryCard title="Saldo Atual" value={saldo} icon="saldo" isCurrency />
-        <SummaryCard title="Despesas do Mês" value={despesas} icon="despesa" isCurrency isNegative />
-        <SummaryCard title="Receitas do Mês" value={receitas} icon="receita" isCurrency />
-    </div>
-)
-
-const AlertasGastos = () => (
-    <div className="alertas-container">
-        <h3>Alertas de Gastos</h3>
-
-        <div className="alert-item excessive">
-            <span className="alert-icon">⚠️</span>
-            <p>Você desembolsou R$ 1200 em alimentação, excedendo a cota de R$ 1000. Pense em rever suas despesas neste setor.</p>
-        </div>
-        <div className="alert-item excessive">
-            <span className="alert-icon">⚠️</span>
-            <p>Você desembolsou R$ 800 em lazer, excedendo o teto de R$ 500. Pense em rever suas despesas neste setor.</p>
-        </div>
+const FeatureCard = ({ icon, title, description }) => (
+    <div className="feature-card">
+        <div className="feature-icon">{icon}</div>
+        <h3>{title}</h3>
+        <p>{description}</p>
     </div>
 );
-
-const FluxoCaixa = () => (
-    <div className="fluxo-caixa-container">
-        <h3>Fluxo de Caixa</h3>
-        <p className="mock-chart-placeholder">
-            [Gráfico de Receitas vs Despesas dos Últimos 6 meses será implementado aqui]
-        </p>
-    </div>
-);
-
-
 
 const HomePage = () => {
     const navigate = useNavigate();
 
-    const mockData = {
-        saldo: 5219.00,
-        despesas: 3209.00,
-        receitas: 7500.00
-    };
-
     const handleNavigateToTransactions = () => {
-        navigate('/transacoes'); 
+        navigate('/transacoes');
     };
 
     return (
@@ -71,22 +37,58 @@ const HomePage = () => {
                     </div>
                 </section>
                 
-                <section className="dashboard-content">
+                <section className="dashboard-content generic-mode">
 
-                    <h2>Visão Geral Financeira</h2>
-                    <FinanceiroGeral 
-                        saldo={mockData.saldo} 
-                        despesas={mockData.despesas} 
-                        receitas={mockData.receitas} 
-                    />
-                    
-                    <AlertasGastos />
-                    <FluxoCaixa />
-                    
+                    <div className="section-header">
+                        <h2>Tudo sob controle</h2>
+                        <p>Uma visão clara para o seu sucesso financeiro.</p>
+                    </div>
+
+                    <div className="features-grid">
+                        <FeatureCard 
+                            icon="📊" 
+                            title="Dashboards Intuitivos" 
+                            description="Visualize seus saldos e despesas sem planilhas complicadas." 
+                        />
+                        <FeatureCard 
+                            icon="📚" 
+                            title="Lições para seu Crescimento" 
+                            description="Aprenda com facilidade." 
+                        />
+                        <FeatureCard 
+                            icon="📈" 
+                            title="Relatórios de Evolução" 
+                            description="Acompanhe seu progresso mês a mês com gráficos detalhados." 
+                        />
+                    </div>
+
+                    <div className="demo-visual-section">
+                        <div className="demo-text">
+                            <h3>Simplifique sua rotina</h3>
+                            <p>O Ecofin transforma dados complexos em decisões simples.</p>
+                        </div>
+                        
+                        <div className="mockup-card">
+                            <div className="mockup-header">
+                                <span className="dot red"></span>
+                                <span className="dot yellow"></span>
+                                <span className="dot green"></span>
+                            </div>
+                            <div className="mockup-content">
+                                <div className="skeleton-header"></div>
+                                <div className="skeleton-graph"></div>
+                                <div className="skeleton-lines">
+                                    <div className="line full"></div>
+                                    <div className="line three-quarter"></div>
+                                    <div className="line half"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </section>
 
             </main>
-            
         </div>
     );
 };

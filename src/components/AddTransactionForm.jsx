@@ -1,41 +1,61 @@
-import React, { useState } from 'react';
-import './AddTransactionForm.css';
+import React, { useState, useEffect } from "react";
+import "./AddTransactionForm.css";
 
-const AddTransactionForm = ({ onAddTransaction }) => {
-  const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
-  const [type, setType] = useState('despesa');
-  const [category, setCategory] = useState('');
+const AddTransactionForm = ({ onAddTransaction, editingTransaction, onEditSubmit, onCancelEdit }) => {
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+  const [type, setType] = useState("despesa");
+  const [category, setCategory] = useState("");
+
+  // Quando entrar em modo de edição, preencher o formulário
+  useEffect(() => {
+    if (editingTransaction) {
+      setDescription(editingTransaction.description);
+      setValue(Math.abs(editingTransaction.value));
+      setType(editingTransaction.value < 0 ? "despesa" : "receita");
+      setCategory(editingTransaction.category);
+    }
+  }, [editingTransaction]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!description || !value || !category) {
-      alert('Por favor, preencha todos os campos.');
+      alert("Por favor, preencha todos os campos.");
       return;
     }
 
+    const finalValue =
+      type === "despesa" ? -parseFloat(value) : parseFloat(value);
+
     const newTransaction = {
-      id: Date.now(),
+      id: editingTransaction ? editingTransaction.id : Date.now(),
       description,
-      value: parseFloat(value),
-      type,
+      value: finalValue,
       category,
-      date: new Date().toISOString().split('T')[0],
+      type,
+      date: new Date().toISOString().split("T")[0],
     };
 
-    onAddTransaction(newTransaction);
+    if (editingTransaction) {
+      onEditSubmit(newTransaction);
+    } else {
+      onAddTransaction(newTransaction);
+    }
 
-    // limpar os campos
-    setDescription('');
-    setValue('');
-    setCategory('');
-    setType('despesa');
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setDescription("");
+    setValue("");
+    setCategory("");
+    setType("despesa");
   };
 
   return (
     <div className="form-container">
-      <h3>Adicionar Nova Transação</h3>
+      <h3>{editingTransaction ? "Editar Transação" : "Adicionar Nova Transação"}</h3>
 
       <form onSubmit={handleSubmit}>
         <div className="input-row">
@@ -55,13 +75,11 @@ const AddTransactionForm = ({ onAddTransaction }) => {
         </div>
 
         <div className="input-row">
-          {/* Tipo */}
           <select value={type} onChange={(e) => setType(e.target.value)}>
             <option value="despesa">Despesa</option>
             <option value="receita">Receita</option>
           </select>
 
-          {/* Categoria */}
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">Categoria</option>
             <option value="Salário">Salário</option>
@@ -75,8 +93,14 @@ const AddTransactionForm = ({ onAddTransaction }) => {
         </div>
 
         <button type="submit" className="add-button">
-          + Adicionar Transação
+          {editingTransaction ? "Salvar Alterações" : "+ Adicionar Transação"}
         </button>
+
+        {editingTransaction && (
+          <button type="button" className="cancel-button" onClick={onCancelEdit}>
+            Cancelar
+          </button>
+        )}
       </form>
     </div>
   );

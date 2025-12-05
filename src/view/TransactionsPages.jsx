@@ -1,42 +1,54 @@
-// src/pages/TransactionsPages.jsx
-import React, { useState } from 'react';
-import Header from '../components/Header';
-import AddTransactionForm from '../components/AddTransactionForm';
-import TransactionsList from '../components/TransactionsList';
+// src/view/TransactionsPage.jsx
 
-import './TransactionsPages.css';
+import { useState } from "react";
+import AddTransactionForm from "../components/AddTransactionForm";
+import TransactionsList from "../components/TransactionsList";
+import Header from "../components/Header";
+import "../components/TransactionsList.css";
 
-const TransactionsPages = () => {
-  const [transactions, setTransactions] = useState([]);
+export default function TransactionsPage() {
+    const [transactions, setTransactions] = useState([]);
+    const [editingTransaction, setEditingTransaction] = useState(null);
 
-  const handleAddTransaction = (newTransaction) => {
-    setTransactions((prev) => [...prev, newTransaction]);
-  };
+    const handleAddTransaction = (transaction) => {
+        setTransactions(prev => [...prev, transaction]);
+    };
 
-  const handleDeleteTransaction = (transactionId) => {
-    setTransactions((prev) => prev.filter(t => t.id !== transactionId));
-  };
+    const handleEditStart = (transaction) => {
+        setEditingTransaction(transaction);
+    };
 
-  const handleEditStart = () => {
-    alert("Edição ainda não implementada 😅");
-  };
+    const handleEditSubmit = (updatedTransaction) => {
+        setTransactions(prev =>
+            prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t)
+        );
+        setEditingTransaction(null);
+    };
 
-  return (
-    <div className="transactions-container">
-      <Header />
-      <main className="main-content">
-        <h1 className="page-title">Transações</h1>
+    const handleCancelEdit = () => {
+        setEditingTransaction(null);
+    };
 
-        <AddTransactionForm onAddTransaction={handleAddTransaction} />
+    const handleDeleteTransaction = (id) => {
+        setTransactions(prev => prev.filter(t => t.id !== id));
+    };
 
-        <TransactionsList
-          transactions={transactions}
-          onDelete={handleDeleteTransaction}
-          onEditStart={handleEditStart}
-        />
-      </main>
-    </div>
-  );
-};
+    return (
+        <div className="container">
+            <Header title="Transações" />
 
-export default TransactionsPages;
+            <AddTransactionForm
+                onAddTransaction={handleAddTransaction}
+                editingTransaction={editingTransaction}
+                onEditSubmit={handleEditSubmit}
+                onCancelEdit={handleCancelEdit}
+            />
+
+            <TransactionsList
+                transactions={transactions}
+                onDelete={handleDeleteTransaction}
+                onEditStart={handleEditStart}
+            />
+        </div>
+    );
+}

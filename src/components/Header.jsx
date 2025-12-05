@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import './Header.css';
 import logoImage from '../assets/logo.png';
 
@@ -6,9 +7,12 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo-container">
-       <img src={logoImage} alt="EcoFin Logo" className="logo-image" />
-        <span className="app-name">EcoFin</span>
+        <Link to="/home" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', color: 'inherit' }}>
+           <img src={logoImage} alt="EcoFin Logo" className="logo-image" />
+           <span className="app-name">EcoFin</span>
+        </Link>
       </div>
+
       <nav className="navbar">
         <ul>
           <li><a href="/home">Home</a></li>

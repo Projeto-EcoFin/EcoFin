@@ -16,6 +16,7 @@
     padding-bottom: 50px;
 }
 
+/* --- SEU CSS ORIGINAL (MANTIDO) --- */
 .home-hero {
     background-image: url('../assets/imagemHome.jpeg'); 
     background-size: cover;
@@ -59,43 +60,154 @@
     background-color: #303f9f;
 }
 
+/* --- NOVO CSS PARA A PARTE GENÉRICA --- */
 
-.visao-geral-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-    margin-bottom: 40px;
+/* Cabeçalho da seção */
+.section-header {
+    text-align: center;
+    margin: 40px 0 30px 0;
 }
 
+.section-header h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
 
-.alertas-container h3,
-.fluxo-caixa-container h3 {
+.section-header p {
+    color: #666;
+}
+
+/* Grid de Cards */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.feature-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     text-align: center;
-    margin-top: 30px;
+    border: 1px solid #eee;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+    color: #0b4f8d;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Área de Demonstração Visual */
+.demo-visual-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+
+.demo-text {
+    flex: 1;
+    min-width: 280px;
+}
+
+.demo-text h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.demo-text p {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+/* Mockup Card (O desenho do sistema) */
+.mockup-card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    height: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.mockup-header {
+    background: #eef1f5;
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.mockup-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Skeleton Loading Effect */
+.skeleton-header {
+    width: 40%;
+    height: 20px;
+    background: #f0f0f0;
+    border-radius: 4px;
     margin-bottom: 20px;
 }
 
-.alert-item {
-    background-color: #ffe0e0; 
-    border-left: 5px solid #dc3545; 
-    padding: 15px;
-    margin-bottom: 15px;
+.skeleton-graph {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(90deg, #f0f0f0 0%, #f8f8f8 50%, #f0f0f0 100%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: loading 2s infinite;
+}
+
+.skeleton-lines .line {
+    height: 10px;
+    background: #f0f0f0;
+    margin-bottom: 8px;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
 }
+.line.full { width: 100%; }
+.line.three-quarter { width: 75%; }
+.line.half { width: 50%; }
 
-.alert-icon {
-    font-size: 1.5rem;
-    margin-right: 10px;
-}
-
-.mock-chart-placeholder {
-    background-color: #f0f0f0;
-    border: 1px dashed #ccc;
-    padding: 100px 20px;
-    text-align: center;
-    color: #666;
-    margin-bottom: 40px;
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
