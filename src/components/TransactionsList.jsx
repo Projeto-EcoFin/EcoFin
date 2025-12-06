@@ -1,5 +1,5 @@
 import React from 'react';
-import './TransactionsList.css'; // <--- IMPORTAÇÃO DO ESTILO
+import './TransactionsList.css'; 
 
 const TransactionsList = ({ transactions, onDelete, onEditStart }) => {
     if (!transactions || transactions.length === 0) {

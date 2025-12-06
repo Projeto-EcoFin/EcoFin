@@ -62,29 +62,9 @@ const HomePage = () => {
                         />
                     </div>
 
-                    <div className="demo-visual-section">
-                        <div className="demo-text">
-                            <h3>Simplifique sua rotina</h3>
-                            <p>O Ecofin transforma dados complexos em decisões simples.</p>
-                        </div>
                         
-                        <div className="mockup-card">
-                            <div className="mockup-header">
-                                <span className="dot red"></span>
-                                <span className="dot yellow"></span>
-                                <span className="dot green"></span>
-                            </div>
-                            <div className="mockup-content">
-                                <div className="skeleton-header"></div>
-                                <div className="skeleton-graph"></div>
-                                <div className="skeleton-lines">
-                                    <div className="line full"></div>
-                                    <div className="line three-quarter"></div>
-                                    <div className="line half"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                       
+                   
 
                 </section>
 

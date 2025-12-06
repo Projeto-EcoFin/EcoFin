@@ -95,7 +95,6 @@ const BudgetPage = () => {
                     </div>
                 </div>
 
-                {/* Seção Central: Lista de Orçamentos */}
                 <div className="card budget-list-card">
                     <h3>Lista de Orçamentos</h3>
                     <table className="budget-table">

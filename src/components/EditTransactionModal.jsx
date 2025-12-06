@@ -91,7 +91,6 @@ const EditTransactionModal = ({ transaction, onSave, onCancel }) => {
                         />
                     </div>
 
-                    {/* Botões de Ação */}
                     <div className="modal-actions">
                         <button type="button" className="cancel-button" onClick={onCancel}>
                             Cancelar
