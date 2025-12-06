@@ -1,11 +1,9 @@
-// src/view/RegisterPage.jsx - CORRIGIDO
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/AuthService'; 
 import './RegisterPage.css';
 
-// 1. IMPORTAR A IMAGEM (igual fizemos no login)
 import logoImage from '../assets/logoP.png'; 
 
 const RegisterPage = () => {
@@ -44,7 +42,6 @@ const RegisterPage = () => {
     return (
         <div className="split-page-container">
             
-            {/* PAINEL ESQUERDO: CONTEÚDO DO FORMULÁRIO */}
             <div className="left-panel">
                 <div className="register-box">
                     <h1 className="title">Crie sua Conta EcoFin</h1>
@@ -96,18 +93,15 @@ const RegisterPage = () => {
                         </button>
 
                         <p className="register-link">
-                            {/* Corrigido para navegar ao invés de usar <a> */}
                             Já tem conta? <a onClick={() => navigate('/login')} style={{cursor: 'pointer'}}>Faça Login</a>
                         </p>
                     </form>
                 </div>
             </div>
 
-            {/* PAINEL DIREITO: LOGO E DECORAÇÃO */}
             <div className="right-panel">
                  <div className="ecofin-logo-panel">
                      
-                     {/* 2. USAR A VARIÁVEL DA IMAGEM IMPORTADA */}
                      <img 
                         src={logoImage} 
                         alt="Logo da EcoFin" 

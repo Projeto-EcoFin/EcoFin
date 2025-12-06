@@ -5,9 +5,7 @@ import Header from '../components/Header.jsx';
 const GraficoReceitasDespesas = () => (
   <div className="card-grafico">
     <h2 className="grafico-titulo">Receitas VS Despesas</h2>
-    {/* Substituir por um componente de gráfico real (ex: Chart.js, Recharts) */}
     <div className="grafico-placeholder bar-chart">
-        {/* Simulação visual do gráfico de barras */}
         <p>[Gráfico de Barras: Recitas (Verde) vs Despesas (Vermelho)]</p>
     </div>
   </div>
@@ -16,7 +14,6 @@ const GraficoReceitasDespesas = () => (
 const GraficoDistribuicao = () => (
   <div className="card-grafico">
     <h2 className="grafico-titulo">Distribuição de gastos por categoria</h2>
-    {/* Substituir por um componente de gráfico real (ex: Chart.js, Recharts) */}
     <div className="grafico-placeholder pie-chart">
         <p>[Gráfico de Pizza]</p>
         <div className="legenda">
@@ -33,7 +30,6 @@ const GraficoDistribuicao = () => (
 const GraficoEvolucaoPoupanca = () => (
   <div className="card-grafico full-width">
     <h2 className="grafico-titulo">Evolução da Poupança</h2>
-    {/* Substituir por um componente de gráfico real (ex: Chart.js, Recharts) */}
     <div className="grafico-placeholder line-chart">
         <p>[Gráfico de Linhas: Evolução da Poupança]</p>
     </div>
@@ -65,7 +61,6 @@ const DashboardPage = () => {
             
             <div className="main-content">
 
-                {/* Gráficos */}
                 <div className="dashboard-grid">
                     
                     <div className="grid-row-1">

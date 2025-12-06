@@ -1,4 +1,3 @@
-# backend-flask/controllers/transaction_controller.py
 
 from flask import Blueprint, jsonify, request
 from services.transaction_service import (

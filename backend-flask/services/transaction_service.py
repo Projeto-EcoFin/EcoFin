@@ -1,4 +1,3 @@
-# backend-flask/services/transaction_service.py
 
 from models.transaction_model import Transaction
 

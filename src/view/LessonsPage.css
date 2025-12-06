@@ -81,7 +81,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* --- Grid de Lições --- */
 .lessons-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -99,7 +98,6 @@ body {
   border: 1px solid transparent;
 }
 
-/* Efeito de hover apenas nos cards desbloqueados */
 .lesson-card:not(.locked):hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
@@ -117,7 +115,7 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 15px;
-  height: 60px; /* Altura fixa para alinhar títulos */
+  height: 60px; 
 }
 
 .lesson-title {
@@ -164,7 +162,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background-color: #10b981; /* Verde Ecofin */
+  background-color: #10b981; 
   border-radius: 10px;
 }
 
@@ -196,7 +194,6 @@ body {
   background-color: #000;
 }
 
-/* Estilo específico para botão bloqueado */
 .lesson-card.locked .lesson-button {
   background-color: #e0e0e0;
   color: #999;

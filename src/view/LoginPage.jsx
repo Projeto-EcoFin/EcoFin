@@ -1,11 +1,9 @@
-// src/view/LoginPage.jsx - ATUALIZADO COM A LOGO
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/AuthService';
 import './LoginPage.css'; 
 
-// 1. IMPORTAR A IMAGEM
 import logoImage from '../assets/logoP.png'; // <-- Caminho relativo correto
 
 const LoginPage = () => {
@@ -31,7 +29,6 @@ const LoginPage = () => {
     return (
         <div className="split-page-container">
             
-            {/* PAINEL ESQUERDO (Formulário) */}
             <div className="left-panel">
                 <div className="login-box">
                     <form className="login-form" onSubmit={handleSubmit}>
@@ -70,11 +67,9 @@ const LoginPage = () => {
                 </div>
             </div>
 
-            {/* PAINEL DIREITO (Logo) */}
             <div className="right-panel">
                 <div className="ecofin-logo-panel">
                     
-                    {/* 2. USAR A VARIÁVEL DA IMAGEM IMPORTADA */}
                     <img 
                         src={logoImage} 
                         alt="EcoFin Logo" 

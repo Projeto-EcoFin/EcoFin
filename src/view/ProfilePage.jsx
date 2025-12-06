@@ -3,7 +3,6 @@ import { fetchUserProfile, updateUserProfile } from '../services/UserService';
 import './ProfilePage.css'; 
 
 const ProfilePage = () => {
-    // 1. Estado para armazenar os dados do perfil
     const [profile, setProfile] = useState({
         name: '',
         email: '',
@@ -12,15 +11,12 @@ const ProfilePage = () => {
         membroDesde: ''
     });
     
-    // 2. Estados de UI
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-    // =================================================================
-    // FUNÇÃO: Carregar Perfil (useEffect)
-    // =================================================================
+   
     useEffect(() => {
         const loadProfile = async () => {
             try {
@@ -36,9 +32,7 @@ const ProfilePage = () => {
         loadProfile();
     }, []);
 
-    // =================================================================
-    // FUNÇÃO: Atualizar Campo
-    // =================================================================
+  
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProfile(prevProfile => ({
@@ -47,33 +41,27 @@ const ProfilePage = () => {
         }));
     };
 
-    // =================================================================
-    // FUNÇÃO: Salvar Alterações
-    // =================================================================
+   
     const handleSave = async () => {
         setError(null);
         setSuccessMessage(null);
         
-        // Dados para enviar ao backend (usamos 'nome' no frontend para 'name' no backend)
         const updateData = {
-            nome: profile.name, // O backend/user_model fará o mapeamento de 'nome' para 'name'
+            nome: profile.name, 
             telefone: profile.telefone,
             localizacao: profile.localizacao
         };
 
         try {
             const updatedData = await updateUserProfile(updateData);
-            setProfile(updatedData); // Atualiza o estado com a resposta do backend
+            setProfile(updatedData); 
             setSuccessMessage("Perfil atualizado com sucesso!");
-            setIsEditing(false); // Sai do modo de edição
+            setIsEditing(false); 
         } catch (err) {
             setError(err.message || "Erro ao salvar as alterações.");
         }
     };
     
-    // =================================================================
-    // RENDERIZAÇÃO
-    // =================================================================
     
     if (loading) {
         return <div className="profile-container">Carregando perfil...</div>;
@@ -92,7 +80,6 @@ const ProfilePage = () => {
 
             <div className="profile-data">
                 
-                {/* Campo Nome */}
                 <div className="profile-field">
                     <label>Nome:</label>
                     {isEditing ? (
@@ -107,13 +94,11 @@ const ProfilePage = () => {
                     )}
                 </div>
 
-                {/* Campo Email (Somente Leitura) */}
                 <div className="profile-field">
                     <label>Email:</label>
                     <span>{profile.email}</span> 
                 </div>
 
-                {/* Campo Telefone */}
                 <div className="profile-field">
                     <label>Telefone:</label>
                     {isEditing ? (
@@ -128,7 +113,6 @@ const ProfilePage = () => {
                     )}
                 </div>
 
-                {/* Campo Localização */}
                 <div className="profile-field">
                     <label>Localização:</label>
                     {isEditing ? (
@@ -143,14 +127,12 @@ const ProfilePage = () => {
                     )}
                 </div>
 
-                {/* Campo Membro Desde (Somente Leitura) */}
                 <div className="profile-field">
                     <label>Membro Desde:</label>
                     <span>{profile.membroDesde}</span>
                 </div>
             </div>
 
-            {/* Botões de Ação */}
             <div className="profile-actions">
                 {isEditing ? (
                     <>

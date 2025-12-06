@@ -1,4 +1,3 @@
-# services/budget_service.py
 
 from models.budget_model import Budget
 from database import db

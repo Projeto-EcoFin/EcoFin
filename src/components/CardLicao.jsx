@@ -1,13 +1,9 @@
-// src/components/CardLicao.jsx (CORRIGIDO)
-
-// ⚠️ Mude a declaração do componente para 'export default'
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // ⚠️ Adicionando useNavigate para o handleClick
 
 const CardLicao = ({ id, title, description, duration, progress, locked, status }) => {
     const navigate = useNavigate();
     
-    // A função 'onClick' (que estava no CardLicao anterior) foi substituída por handleClick
     const handleClick = () => {
         if (!locked) navigate(`/aula/${id}`);
     };
@@ -51,4 +47,4 @@ const CardLicao = ({ id, title, description, duration, progress, locked, status 
     );
 };
 
-export default CardLicao; // ⚠️ Exportação Padrão resolve o erro no CardLicao
+export default CardLicao;

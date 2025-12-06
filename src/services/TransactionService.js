@@ -1,14 +1,9 @@
-// src/services/TransactionService.js
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/transactions";
 
-// Função para obter o ID do usuário do localStorage
 const getUserID = () => localStorage.getItem("user_id_simple");
 
-// =========================
-// LISTAR TRANSAÇÕES
-// =========================
 export const fetchTransactions = async () => {
   const userID = getUserID();
   if (!userID) return [];
@@ -20,9 +15,6 @@ export const fetchTransactions = async () => {
   return res.data;
 };
 
-// =========================
-// CRIAR TRANSAÇÃO
-// =========================
 export const createTransaction = async (data) => {
   const userID = getUserID();
   if (!userID) throw new Error("Usuário não encontrado para criar transação");
@@ -34,9 +26,7 @@ export const createTransaction = async (data) => {
   return res.data.transaction;
 };
 
-// =========================
-// ATUALIZAR TRANSAÇÃO
-// =========================
+
 export const updateTransaction = async (id, updateData) => {
   const userID = getUserID();
   if (!userID) throw new Error("Usuário não encontrado");
@@ -48,9 +38,7 @@ export const updateTransaction = async (id, updateData) => {
   return res.data.transaction;
 };
 
-// =========================
-// DELETAR TRANSAÇÃO
-// =========================
+
 export const deleteTransaction = async (id) => {
   const userID = getUserID();
   if (!userID) throw new Error("Usuário não encontrado");

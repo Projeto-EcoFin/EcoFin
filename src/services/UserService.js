@@ -1,8 +1,6 @@
-// src/services/UserService.js
 
 const API_PROFILE_URL = "http://localhost:3000/api/profile";
 
-// Função utilitária para obter o token JWT do Flask
 const getAuthHeaders = () => {
     const token = localStorage.getItem('access_token');
     if (!token) {
@@ -14,9 +12,7 @@ const getAuthHeaders = () => {
     };
 };
 
-// =================================================================
-// FUNÇÕES DE ACESSO AO PERFIL
-// =================================================================
+
 
 export const fetchUserProfile = async () => {
     const headers = getAuthHeaders();

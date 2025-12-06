@@ -274,7 +274,6 @@ body {
     background-color: #4682B4;
 }
 
-/* === Responsividade Básica === */
 @media (max-width: 768px) {
     .checkout-container {
         flex-direction: column;

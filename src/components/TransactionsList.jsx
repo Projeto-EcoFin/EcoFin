@@ -1,7 +1,4 @@
-// src/components/TransactionsList.jsx (Modelo de Estrutura)
-
 import React from 'react';
-// IMPORTANTE: Certifique-se que o CSS está sendo importado!
 import './TransactionsList.css'; // <--- IMPORTAÇÃO DO ESTILO
 
 const TransactionsList = ({ transactions, onDelete, onEditStart }) => {
@@ -11,7 +8,6 @@ const TransactionsList = ({ transactions, onDelete, onEditStart }) => {
 
     return (
         <div className="transactions-list-container">
-            {/* Cabeçalho da Lista */}
             <div className="transaction-item header-row">
                 <span className="trans-date">Data</span>
                 <span className="trans-desc">Descrição</span>
@@ -21,9 +17,7 @@ const TransactionsList = ({ transactions, onDelete, onEditStart }) => {
                 <span className="trans-actions">Ações</span>
             </div>
 
-            {/* Itens da Lista */}
             {transactions.map(t => (
-                // ⚠️ A classe 'despesa' ou 'receita' é crucial para as cores!
                 <div key={t.id} className={`transaction-item ${t.type.toLowerCase()}`}>
                     <span className="trans-date">{t.date}</span>
                     <span className="trans-desc">{t.description}</span>
