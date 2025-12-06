@@ -1,5 +1,3 @@
-// src/view/TransactionsPage.jsx
-
 import { useState } from "react";
 import AddTransactionForm from "../components/AddTransactionForm";
 import TransactionsList from "../components/TransactionsList";

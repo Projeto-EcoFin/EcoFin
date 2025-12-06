@@ -7,7 +7,6 @@ const AddTransactionForm = ({ onAddTransaction, editingTransaction, onEditSubmit
   const [type, setType] = useState("despesa");
   const [category, setCategory] = useState("");
 
-  // Quando entrar em modo de edição, preencher o formulário
   useEffect(() => {
     if (editingTransaction) {
       setDescription(editingTransaction.description);

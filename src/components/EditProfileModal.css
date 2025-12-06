@@ -1,4 +1,3 @@
-/* src/components/EditProfileModal.css */
 
 .modal-overlay {
     position: fixed;
@@ -6,11 +5,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+    background: rgba(0, 0, 0, 0.6); 
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Garante que fique acima de tudo */
+    z-index: 1000; 
 }
 
 .modal-content {
@@ -46,8 +45,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
-}
+    box-sizing: border-box; 
 
 .edit-profile-form input.disabled {
     background-color: #f0f0f0;

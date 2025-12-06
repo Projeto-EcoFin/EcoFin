@@ -1,5 +1,3 @@
-# backend-flask/models/transaction_model.py
-
 class Transaction:
     def __init__(self, id, description, value, category, date, type):
         self.id = id

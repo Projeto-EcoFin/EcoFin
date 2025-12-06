@@ -1,12 +1,8 @@
-// src/services/AuthService.js (CORRIGIDO)
 
-// URL Base da API (aponta para o prefixo /api)
 const API_BASE = 'http://localhost:3000/api';
 const STORAGE_KEY = 'user_id_simple'; 
 
-// 1. LOGIN
 export const loginUser = async (email, password) => {
-    // Rota: /api/auth/login
     const response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -16,7 +12,6 @@ export const loginUser = async (email, password) => {
     const data = await response.json();
 
     if (response.ok) {
-        // Salva o ID simples
         localStorage.setItem(STORAGE_KEY, data.user_id); 
         return { user: data.user, success: true };
     } else {
@@ -24,7 +19,6 @@ export const loginUser = async (email, password) => {
     }
 };
 
-// 2. REGISTRO
 export const registerUser = async (name, email, password) => {
     const response = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
@@ -42,7 +36,6 @@ export const registerUser = async (name, email, password) => {
     }
 };
 
-// 3. GET PROFILE (AQUI ESTAVA O ERRO 401)
 export const getProfile = async () => {
     const userId = localStorage.getItem(STORAGE_KEY);
 
@@ -50,7 +43,6 @@ export const getProfile = async () => {
         throw new Error("Usuário não autenticado.");
     }
 
-    // 🚀 CORREÇÃO: Envia X-User-ID em vez de Authorization
     const response = await fetch(`${API_BASE}/profile`, {
         method: 'GET',
         headers: {
@@ -68,7 +60,6 @@ export const getProfile = async () => {
     return data; 
 };
 
-// 4. LOGOUT
 export const logoutUser = async () => {
     localStorage.removeItem(STORAGE_KEY);
 };

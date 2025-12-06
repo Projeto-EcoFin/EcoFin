@@ -9,13 +9,11 @@ const AulaPage = () => {
     const navigate = useNavigate();
 
     const lessonId = parseInt(id, 10);
-    // Verificação de existência para evitar crash, embora o Router deva proteger
     const lesson = mockLessonsData.find(l => l.id === lessonId); 
 
     const [progress, setProgress] = useState(lesson?.progress || 0);
 
     const concluirAula = () => {
-        // ... (resto da função mantido)
         lesson.progress = 100;
         setProgress(100);
         alert("Aula concluída com sucesso!");
@@ -37,14 +35,12 @@ const AulaPage = () => {
         return <p>Aula não encontrada!</p>;
     }
 
-    // ... (restante do JSX mantido inalterado)
     return (
         <div className="aula-wrapper">
             <Header />
 
             <div className="aula-container">
 
-                {/* ─ Sidebar ─ */}
                 <aside className="sidebar">
                     <h3>Conteúdo do Curso</h3>
                     <ul>
@@ -62,7 +58,6 @@ const AulaPage = () => {
                     </ul>
                 </aside>
 
-                {/* ─ Conteúdo da Aula ─ */}
                 <main className="aula-content">
                     <h1>{lesson.title}</h1>
 

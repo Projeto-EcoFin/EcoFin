@@ -7,7 +7,6 @@ import {
   LineChart, Line, AreaChart, Area
 } from 'recharts';
 
-// --- MOCK DATA (DADOS FICTÍCIOS) ---
 
 const dadosReceitasDespesas = [
   { mes: 'Jan', receita: 5000, despesa: 3200 },
@@ -35,7 +34,6 @@ const dadosPoupanca = [
   { mes: 'Jun', saldo: 16500 },
 ];
 
-// --- COMPONENTES ---
 
 const GraficoReceitasDespesas = () => (
   <div className="card-grafico">
@@ -82,7 +80,6 @@ const GraficoDistribuicao = () => (
         </PieChart>
       </ResponsiveContainer>
       
-      {/* Legenda customizada mantida do seu código original para combinar com as cores */}
       <div className="legenda">
         {dadosCategorias.map((cat) => (
             <div key={cat.name} style={{ display: 'flex', alignItems: 'center' }}>
@@ -127,7 +124,6 @@ const GraficoEvolucaoPoupanca = () => (
 const DashboardPage = () => {
     const [periodo, setPeriodo] = useState('Último mês');
 
-    // Dropdown (mantido, mas não afeta os mocks estáticos por enquanto)
     const PeriodoDropdown = () => (
         <div className="dropdown-container">
             <select 
@@ -148,7 +144,6 @@ const DashboardPage = () => {
             <Header />
             <div className="main-content">
                 <div className="dashboard-controles">
-                   {/* Inseri o dropdown aqui só para não ficar solto no código */}
                    <h2 style={{margin: 0}}>Visão Geral</h2>
                    <PeriodoDropdown />
                 </div>

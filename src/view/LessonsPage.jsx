@@ -1,13 +1,11 @@
-// src/view/LessonsPage.jsx (CORRIGIDO)
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // useNavigate já é usado implicitamente no CardLicao
+import { Link } from 'react-router-dom'; 
 import Header from '../components/Header.jsx'; 
-import CardLicao from '../components/CardLicao.jsx'; // ⚠️ Importação correta do CardLicao
-import { mockLessonsData } from '../data/lessonsData.js'; // ⚠️ Importação correta dos dados
+import CardLicao from '../components/CardLicao.jsx'; 
+import { mockLessonsData } from '../data/LessonsData.js'; 
 import './LessonsPage.css';
 
-// ⚠️ SecaoVIP continua aqui, pois é auxiliar e não é exportada.
 const SecaoVIP = () => (
     <div className="vip-section">
         <h2 className="vip-title">Conteúdo Exclusivo VIP</h2>
